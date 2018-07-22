@@ -1,0 +1,172 @@
+﻿@model     RentACar.Models.Musteri
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="right_col">
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Müşteri Ekleme</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <form action="Create" method="post" enctype="multipart/form-data" class="form-horizontal form-label-left" novalidate="">
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Tc">
+                                TC<span class="required">*</span>
+                            </label>
+
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="Tc" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="Tc" required="required" type="text">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="VergiNo">
+                                Vergi No<span class="required">*</span>
+                            </label>
+
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="VergiNo" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="VergiNo" required="required" type="text">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="VergiDairesi">
+                                Vergi Dairesi<span class="required">*</span>
+                            </label>
+
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="VergiDairesi" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="VergiDairesi" required="required" type="text">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Unvan">
+                                Unvan<span class="required">*</span>
+                            </label>
+
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="Unvan" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="Unvan" required="required" type="text">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="AdiSoyadi">
+                                Adı Soyadı<span class="required">*</span>
+                            </label>
+
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="AdiSoyadi" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="AdiSoyadi" required="required" type="text">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="sehir">
+                                il  <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.DropDownListFor(model => model.SehirID, new SelectList(ViewBag.ilgetir, "SehirId", "sehir"), "Lütfen Seçiniz", new { @class = "form-control col-md-7 col-xs-12", id = "SehirID", name = "SehirID" })
+                            </div>
+                        </div>
+
+
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ilce">
+                                ilçe  <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.DropDownListFor(model => model.ilceID, new SelectList(ViewBag.ilcegetir, "ilceId", "ilce"), "Lütfen Seçiniz", new { @class = "form-control col-md-7 col-xs-12", id = "ilceID", name = "ilceID" })
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Adres">
+                                Adres<span class="required">*</span>
+                            </label>
+
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <textarea id="Adres" class="form-control col-md-7 col-xs-12" name="Adres" required="required"></textarea>
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+                                Cinsiyet <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select id="Cinsiyet" name="Cinsiyet" class="form-control     col-md-7 col-xs-12">
+                                  
+                                    <option value="Kadın">Kadın</option>
+                                    <option value="Kadın">Erkek</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Adres">
+                                Doğum Tarihi<span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class='input-group date' id='datetimepicker1'>
+                                    <input type='text' class="form-control col-md-7 col-xs-12" name="Dogumtarihi" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="EvTel">
+                                Ev Telefonu<span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="EvTel" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="EvTel" required="required" type="text">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gsm">
+                                Cep Telefonu<span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="gsm" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="gsm" required="required" type="text">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="istel">
+                                İş Telefonu<span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="istel" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="istel" required="required" type="text">
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
+
+                                @*@Html.ActionLink("Geri Dön","List",new { @class= "btn btn-primary" })*@
+                                <a href="~/Musteri/List" class="btn btn-success">Geri Dön</a>
+                                <button id="Create" value="Create" type="submit" class="btn btn-success">Ekle</button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker();
+    });
+</script>

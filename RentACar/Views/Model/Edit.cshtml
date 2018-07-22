@@ -1,0 +1,50 @@
+﻿@model RentACar.Models.Model
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="right_col">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_content">
+                    <form action="Edit" method="post" enctype="multipart/form-data" class="form-horizontal form-label-left" novalidate="">
+                        @Html.HiddenFor(model => model.ModelId)
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+                                Marka <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.DropDownListFor(model => model.MarkaID, new SelectList(ViewBag.MarkaGetir, "MarkaId", "MarkaAdi"), "Lütfen Seçiniz", new { @class = "form-control col-md-7 col-xs-12", id = "MarkaID", name = "MarkaID" })
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+                                Model Adı <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextBoxFor(model => model.ModelAdi
+                           
+                           , new { @class = "form-control col-md-7 col-xs-12" })
+                            </div>
+                        </div>
+
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
+                                @*@Html.ActionLink("Geri Dön","List", new { @class = "btn btn-success" })*@
+                                <a href="/Model/List" type="submit" class="btn btn-success">Geri Dön</a>
+                                <button id="Edit" value="Edit" type="submit" class="btn btn-success">Güncelle</button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

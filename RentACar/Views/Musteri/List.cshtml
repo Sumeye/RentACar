@@ -1,0 +1,66 @@
+﻿@model IEnumerable<RentACar.Models.Musteri>
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="right_col">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <h2 class="col-md-8">  <a href="Create" class="btn btn-primary">Yeni Müşteri Ekle</a></h2>
+                <div class="clearfix"></div>
+            </div>
+            <div id="SearchDiv" class="x_content" style="display: block;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sıra</th>
+                            <th>Adı Soyadı</th>
+                            <th>Unvan</th>
+                            <th>Cinsiyet</th>
+                            <th>Doğum Tarihi</th>
+                            <th>TC</th>
+                            <th>Vergi No</th>
+                            <th>Vergi Dairesi</th>
+                            <th>il</th>
+                            <th>ilçe</th>
+                            <th>Adres</th>
+                            <th>Ev Tel</th>
+                            <th>İş Tel</th>
+                            <th>Cep Tel</th>
+                            <th>Güncelle / Sil</th>
+                        </tr>
+                    </thead>
+                    @{int i = 0;}
+                    @foreach (var item in Model)
+                    {
+                        <tbody>
+                            <tr>
+                                <td>@(++i)</td>
+                                <td>@item.AdiSoyadi</td>
+                                <td>@item.Unvan</td>
+                                <td>@item.Cinsiyet</td>
+                                <td>@item.Dogumtarihi</td>
+                                <td>@item.Tc</td>
+                                <td>@item.VergiNo</td>
+                                <td>@item.VergiDairesi</td>
+                                <td>@item.iller.sehir</td>
+                                <td>@item.ilceler.ilce</td>
+                                <td>@item.Adres</td>
+                                <td>@item.EvTel</td>
+                                <td>@item.istel</td>
+                                <td>@item.gsm</td>
+                                <td>
+                                    <a class="fa fa-pencil btn btn-success" href="/Musteri/Edit/@item.MusteriId">
+                                    </a>
+                                    <a href="/Musteri/Delete/@item.MusteriId" onclick="return confirm('Dikkat: Bu kaydı silmek istediğinizden emin misiniz?')" class="fa fa-trash btn btn-danger "></a>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

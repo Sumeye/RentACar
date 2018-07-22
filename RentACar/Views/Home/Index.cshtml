@@ -1,0 +1,27 @@
+﻿@model RentACar.Models.VM.MarkaViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<div class="container" style="margin-top:3%">
+    <a href="#" class="btn btn-info" onclick="AddNewStudent(0)">Yeni Marka Ekle</a> <br /><br />
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Marka ID</th>
+                <th>Marka Adı</th>
+                <th>Düzenle</th>
+                <th>Sil</th>
+
+            </tr>
+        </thead>
+        <tbody id="SetStudentList">
+            <tr id="LoadingStatus" style="color:red"></tr>
+        </tbody>
+    </table>
+</div>
+

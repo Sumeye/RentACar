@@ -1,0 +1,44 @@
+﻿@model IEnumerable<RentACar.Models.Model>
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="right_col">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <h2 class="col-md-8">  <a href="Create" class="btn btn-primary">Yeni Model Ekle</a></h2>
+                <div class="clearfix"></div>
+            </div>
+            <div id="SearchDiv" class="x_content" style="display: block;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sıra</th>
+                            <th>Marka</th>
+                            <th>Model</th>
+                            <th>Güncelle / Sil</th>
+                        </tr>
+                    </thead>
+                    @{int i = 0;}
+                    @foreach (var item in Model)
+                    {
+                        <tbody>
+                            <tr>
+                                <td>@(++i)</td>
+                                <td>@item.MarkaID</td>
+                                <td>@item.ModelAdi</td>
+                                <td>
+                                    <a class="fa fa-pencil btn btn-success" href="/Model/Edit/@item.ModelId">
+                                    </a>
+                                    <a href="/Model/Delete/@item.ModelId" onclick="return confirm('Dikkat: Bu kaydı silmek istediğinizden emin misiniz?')" class="fa fa-trash btn btn-danger "></a>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
