@@ -1,4 +1,4 @@
-﻿@model RentACar.Models.Model
+﻿@model RentACar.Models.Admin
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,34 +8,42 @@
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
-                <h2>Model Güncelleme</h2>
+                <h2>Kullanıcı Güncelleme</h2>
                 <div class="x_content">
                     <form action="Edit" method="post" enctype="multipart/form-data" class="form-horizontal form-label-left" novalidate="">
-                        @Html.HiddenFor(model => model.ModelId)
+                        @Html.HiddenFor(model => model.AdminId)
+
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
-                                Marka <span class="required">*</span>
+                                Kullanıcı Adı <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                @Html.DropDownListFor(model => model.MarkaID, new SelectList(ViewBag.MarkaGetir, "MarkaId", "MarkaAdi"), "Lütfen Seçiniz", new { @class = "form-control col-md-7 col-xs-12", id = "MarkaID", name = "MarkaID" })
+                                @Html.TextBoxFor(model => model.UserName
+
+                           , new { @class = "form-control col-md-7 col-xs-12" })
                             </div>
                         </div>
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
-                                Model Adı <span class="required">*</span>
+                               Yetki <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                @Html.TextBoxFor(model => model.ModelAdi
-                           
-                           , new { @class = "form-control col-md-7 col-xs-12" })
+                                @Html.DropDownListFor(model => model.Yetki, new SelectList(
+                  new List<Object>{
+                       new { value ="Admin" , text = "Admin"  },
+                       new { value = "User", text = "User" },
+                   
+                    },
+                  "value",
+                  "text",
+                   2), new { @class = "form-control col-md-7 col-xs-12" })
                             </div>
                         </div>
 
                         <div class="ln_solid"></div>
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-3">
-                                @*@Html.ActionLink("Geri Dön","List", new { @class = "btn btn-success" })*@
-                                <a href="/Model/List" type="submit" class="btn btn-success">Geri Dön</a>
+                                <a href="/Admin/List" type="submit" class="btn btn-success">Geri Dön</a>
                                 <button id="Edit" value="Edit" type="submit" class="btn btn-success">Güncelle</button>
                             </div>
                         </div>

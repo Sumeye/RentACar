@@ -18,6 +18,7 @@ namespace RentACar.Models
         public Marka()
         {
             this.Arac = new HashSet<Arac>();
+            this.Model = new HashSet<Model>();
         }
     
         public int MarkaId { get; set; }
@@ -25,5 +26,7 @@ namespace RentACar.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Arac> Arac { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Model> Model { get; set; }
     }
 }

@@ -1,0 +1,55 @@
+﻿@model  IEnumerable<RentACar.Models.Rezervasyon>
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="right_col">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <h2 class="col-md-8">  <a href="Create" class="btn btn-primary">Yeni Rezervasyon</a></h2>
+                <div class="clearfix"></div>
+            </div>
+            <div id="SearchDiv" class="x_content" style="display: block;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sıra</th>
+                            <th>Rezervasyon Sahibi</th>
+                            <th>Rezerve Araç</th>
+                            <th>Rezervasyon Tarihi</th>
+                            <th>Rezervasyon Bitiş Tarihi</th>
+                            <th>Rezervasyon Süresi</th>
+                            <th>Tutar</th>
+                            <th>Tutar Cinsi</th>
+                            <th>Güncelle / Sil</th>
+                        </tr>
+                    </thead>
+                    @{int i = 0;}
+                    @foreach (var item in Model)
+                    {
+                        <tbody>
+                            <tr>
+                                <td>@(++i)</td>
+                                <td>@item.Musteri.AdiSoyadi</td>
+                                <td>@item.Arac.Plaka</td>
+                                <td>@item.RezerveTarih</td>
+                                <td>@item.RezerveBitisTarihi</td>
+                                <td>@item.RezerveSure</td>
+                                <td>@item.RezerveUcret</td>
+                                <td>@item.RezerveUcretBirimi</td>
+                                <td>
+                                    <a class="fa fa-pencil btn btn-success" href="/Rezervasyon/Edit/@item.RezervasyonId">
+                                    </a>
+                                    <a href="/Rezervasyon/Delete/@item.RezervasyonId" onclick="return confirm('Dikkat: Bu kaydı silmek istediğinizden emin misiniz?')" class="fa fa-trash btn btn-danger "></a>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

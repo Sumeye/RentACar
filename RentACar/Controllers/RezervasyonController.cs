@@ -1,76 +1,72 @@
 ﻿using RentACar.Models;
+using RentACar.Models.VM;
 using RentACar.Repository;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Data;
-using RentACar.Models.VM;
 
 namespace RentACar.Controllers
 {
-    public class AracController : Controller
+    public class RezervasyonController : Controller
     {
+        RezervasyonRepository repo = new RezervasyonRepository();
         AracTakipDBEntities db = new AracTakipDBEntities();
-        AracRepository ar = new AracRepository();
-        // GET: Arac
-             #region Araç Listeleme !!!
+        // GET: Rezervasyon
+        #region Rezervasyon Listeleme İşlemleri
         public ActionResult List()
         {
-            var data = ar.List();
+            var data = repo.List();
             return View(data);
-        }
+        } 
         #endregion
 
-        #region Ekleme İşlemleri !!!
+        #region Rezervasyon Ekleme işlemleri !!!
         public ActionResult Create()
         {
-            ViewBag.MarkaGetir = db.Marka.ToList();
-            ViewBag.ModelGetir = db.Model.ToList();
-            ViewBag.TipGetir = db.Tip.ToList();
-            //ViewBag.Marka = new SelectList(db.Marka, "MarkaId", "MarkaAdi");
-            //ViewBag.Model = new SelectList(db.Model, "ModelId", "ModelAdi");
-            //ViewBag.Tip = new SelectList(db.Tip, "TipId", "TipAdi");
-
+            ViewBag.MusteriGetir = db.Musteri.ToList();
+            ViewBag.AracGetir = db.Arac.ToList();
             return View();
         }
         [HttpPost]
-        public ActionResult Create(Arac data)
+        public ActionResult Create(Rezervasyon data)
         {
-            #region Ekleme
             try
             {
                 if (ModelState.IsValid)
                 {
-                    ar.Insert(data);
+                    repo.Insert(data);
                     return RedirectToAction("List");
                 }
             }
             catch (DataException)
             {
-                ModelState.AddModelError(string.Empty, "Kayıt Eklenemedi");
+                ModelState.AddModelError(string.Empty, "Kayıt başarısız");
+
             }
             return View(data);
-            #endregion
+
         }
         #endregion
+
+
 
         #region Güncelleme İşlemleri !!!
         public ActionResult Edit(int id)
         {
-            Arac data = ar.SelectById(id);
-            ViewBag.MarkaGetir = db.Marka.ToList();
-            ViewBag.ModelGetir = db.Model.ToList();
-            ViewBag.TipGetir = db.Tip.ToList();
+            Rezervasyon data = repo.SelectById(id);
+            ViewBag.MusteriGetir = db.Musteri.ToList();
+            ViewBag.AracGetir = db.Arac.ToList();
             return View(data);
         }
         [HttpPost]
-        public ActionResult Edit(Arac data)
+        public ActionResult Edit(Rezervasyon data)
         {
             if (ModelState.IsValid)
             {
-                ar.Update(data);
+                repo.Update(data);
                 return RedirectToAction("List");
             }
             else
@@ -88,12 +84,10 @@ namespace RentACar.Controllers
             {
                 ViewBag.ErrorMessage = "Silme işlemi başarısız.";
             }
-            Arac secilenId = ar.SelectById(id);
-            ar.Delete(id);
-            return RedirectToAction("List", secilenId);
+            Rezervasyon rezerve = repo.SelectById(id);
+            repo.Delete(id);
+            return RedirectToAction("List", rezerve);
         }
         #endregion
-
-
     }
 }

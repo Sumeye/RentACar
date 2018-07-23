@@ -4,17 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8a73454fa8a34f96a545785f8b1c1a7f" Name="Diagram1">
-        <EntityTypeShape EntityType="AracTakipDBModel.Admin" Width="1.5" PointX="5.75" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="AracTakipDBModel.Arac" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="AracTakipDBModel.ilceler" Width="1.5" PointX="0.75" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="AracTakipDBModel.iller" Width="1.5" PointX="1.5" PointY="14.625" IsExpanded="true" />
+      <Diagram DiagramId="27e0e078d6724a9fbcccfb0262be0427" Name="Diagram1">
+        <EntityTypeShape EntityType="AracTakipDBModel.Admin" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AracTakipDBModel.Arac" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AracTakipDBModel.ilceler" Width="1.5" PointX="3" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AracTakipDBModel.iller" Width="1.5" PointX="0.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AracTakipDBModel.Marka" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="AracTakipDBModel.Model" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="AracTakipDBModel.Musteri" Width="1.5" PointX="3" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="AracTakipDBModel.Rezervasyon" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AracTakipDBModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="AracTakipDBModel.Tip" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AracTakipDBModel.Model" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AracTakipDBModel.Musteri" Width="1.5" PointX="5.25" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AracTakipDBModel.Rezervasyon" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AracTakipDBModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AracTakipDBModel.Tip" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
         <AssociationConnector Association="AracTakipDBModel.FK_Arac_Marka" ManuallyRouted="false" />
         <AssociationConnector Association="AracTakipDBModel.FK_Arac_Model" ManuallyRouted="false" />
         <AssociationConnector Association="AracTakipDBModel.FK_Arac_Tip" ManuallyRouted="false" />
@@ -22,6 +22,7 @@
         <AssociationConnector Association="AracTakipDBModel.FK_ilceler_iller" ManuallyRouted="false" />
         <AssociationConnector Association="AracTakipDBModel.FK_Musteri_ilceler" ManuallyRouted="false" />
         <AssociationConnector Association="AracTakipDBModel.FK_Musteri_iller" ManuallyRouted="false" />
+        <AssociationConnector Association="AracTakipDBModel.FK_Model_Marka" ManuallyRouted="false" />
         <AssociationConnector Association="AracTakipDBModel.FK_Rezervasyon_Musteri" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

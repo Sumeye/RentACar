@@ -26,5 +26,6 @@ namespace RentACar.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Arac> Arac { get; set; }
+        public virtual Marka Marka { get; set; }
     }
 }

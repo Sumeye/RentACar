@@ -90,7 +90,6 @@
           <Property Name="AracID" Type="int" />
           <Property Name="RezerveUcret" Type="money" />
           <Property Name="RezerveUcretBirimi" Type="varchar" MaxLength="50" />
-          <Property Name="AracDurumu" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -157,6 +156,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Model_Marka">
+          <End Role="Marka" Type="Self.Marka" Multiplicity="0..1" />
+          <End Role="Model" Type="Self.Model" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Marka">
+              <PropertyRef Name="MarkaId" />
+            </Principal>
+            <Dependent Role="Model">
+              <PropertyRef Name="MarkaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Musteri_ilceler">
           <End Role="ilceler" Type="Self.ilceler" Multiplicity="0..1" />
           <End Role="Musteri" Type="Self.Musteri" Multiplicity="*" />
@@ -205,6 +216,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="sp_AdminEkle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Admin" Type="varchar" Mode="In" />
+          <Parameter Name="pw" Type="varchar" Mode="In" />
+          <Parameter Name="yetki" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_AdminListele" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_AracEkle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AracId" Type="int" Mode="In" />
+          <Parameter Name="MarkaId" Type="int" Mode="In" />
+          <Parameter Name="ModelId" Type="int" Mode="In" />
+          <Parameter Name="TipId" Type="int" Mode="In" />
+          <Parameter Name="Plaka" Type="varchar" Mode="In" />
+          <Parameter Name="SasiNo" Type="varchar" Mode="In" />
+          <Parameter Name="Renk" Type="varchar" Mode="In" />
+          <Parameter Name="ModelYıl" Type="varchar" Mode="In" />
+          <Parameter Name="Ucret" Type="money" Mode="In" />
+          <Parameter Name="GunlukUcretBirimi" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_tipListele" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="AracTakipDBModelStoreContainer">
           <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Arac" EntityType="Self.Arac" Schema="dbo" store:Type="Tables" />
@@ -231,6 +261,10 @@
           <AssociationSet Name="FK_ilceler_iller" Association="Self.FK_ilceler_iller">
             <End Role="iller" EntitySet="iller" />
             <End Role="ilceler" EntitySet="ilceler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Model_Marka" Association="Self.FK_Model_Marka">
+            <End Role="Marka" EntitySet="Marka" />
+            <End Role="Model" EntitySet="Model" />
           </AssociationSet>
           <AssociationSet Name="FK_Musteri_ilceler" Association="Self.FK_Musteri_ilceler">
             <End Role="ilceler" EntitySet="ilceler" />
@@ -308,6 +342,7 @@
           <Property Name="MarkaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MarkaAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Arac" Relationship="Self.FK_Arac_Marka" FromRole="Marka" ToRole="Arac" />
+          <NavigationProperty Name="Model" Relationship="Self.FK_Model_Marka" FromRole="Marka" ToRole="Model" />
         </EntityType>
         <EntityType Name="Model">
           <Key>
@@ -317,6 +352,7 @@
           <Property Name="ModelAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="MarkaID" Type="Int32" />
           <NavigationProperty Name="Arac" Relationship="Self.FK_Arac_Model" FromRole="Model" ToRole="Arac" />
+          <NavigationProperty Name="Marka" Relationship="Self.FK_Model_Marka" FromRole="Model" ToRole="Marka" />
         </EntityType>
         <EntityType Name="Musteri">
           <Key>
@@ -352,7 +388,6 @@
           <Property Name="AracID" Type="Int32" />
           <Property Name="RezerveUcret" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="RezerveUcretBirimi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="AracDurumu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Arac" Relationship="Self.FK_Rezervasyon_Arac" FromRole="Rezervasyon" ToRole="Arac" />
           <NavigationProperty Name="Musteri" Relationship="Self.FK_Rezervasyon_Musteri" FromRole="Rezervasyon" ToRole="Musteri" />
         </EntityType>
@@ -458,6 +493,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Model_Marka">
+          <End Role="Marka" Type="Self.Marka" Multiplicity="0..1" />
+          <End Role="Model" Type="Self.Model" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Marka">
+              <PropertyRef Name="MarkaId" />
+            </Principal>
+            <Dependent Role="Model">
+              <PropertyRef Name="MarkaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Rezervasyon_Musteri">
           <End Role="Musteri" Type="Self.Musteri" Multiplicity="0..1" />
           <End Role="Rezervasyon" Type="Self.Rezervasyon" Multiplicity="*" />
@@ -509,11 +556,44 @@
             <End Role="iller" EntitySet="iller" />
             <End Role="Musteri" EntitySet="Musteri" />
           </AssociationSet>
+          <AssociationSet Name="FK_Model_Marka" Association="Self.FK_Model_Marka">
+            <End Role="Marka" EntitySet="Marka" />
+            <End Role="Model" EntitySet="Model" />
+          </AssociationSet>
           <AssociationSet Name="FK_Rezervasyon_Musteri" Association="Self.FK_Rezervasyon_Musteri">
             <End Role="Musteri" EntitySet="Musteri" />
             <End Role="Rezervasyon" EntitySet="Rezervasyon" />
           </AssociationSet>
+          <FunctionImport Name="sp_AdminEkle">
+            <Parameter Name="Admin" Mode="In" Type="String" />
+            <Parameter Name="pw" Mode="In" Type="String" />
+            <Parameter Name="yetki" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_AdminListele" ReturnType="Collection(AracTakipDBModel.sp_AdminListele_Result)" />
+          <FunctionImport Name="sp_AracEkle">
+            <Parameter Name="AracId" Mode="In" Type="Int32" />
+            <Parameter Name="MarkaId" Mode="In" Type="Int32" />
+            <Parameter Name="ModelId" Mode="In" Type="Int32" />
+            <Parameter Name="TipId" Mode="In" Type="Int32" />
+            <Parameter Name="Plaka" Mode="In" Type="String" />
+            <Parameter Name="SasiNo" Mode="In" Type="String" />
+            <Parameter Name="Renk" Mode="In" Type="String" />
+            <Parameter Name="ModelYıl" Mode="In" Type="String" />
+            <Parameter Name="Ucret" Mode="In" Type="Decimal" />
+            <Parameter Name="GunlukUcretBirimi" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_tipListele" ReturnType="Collection(AracTakipDBModel.sp_tipListele_Result)" />
         </EntityContainer>
+        <ComplexType Name="sp_AdminListele_Result">
+          <Property Type="Int32" Name="AdminId" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Yetki" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_tipListele_Result">
+          <Property Type="Int32" Name="TipId" Nullable="false" />
+          <Property Type="String" Name="TipAdi" Nullable="true" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -611,7 +691,6 @@
                 <ScalarProperty Name="AracID" ColumnName="AracID" />
                 <ScalarProperty Name="RezerveUcret" ColumnName="RezerveUcret" />
                 <ScalarProperty Name="RezerveUcretBirimi" ColumnName="RezerveUcretBirimi" />
-                <ScalarProperty Name="AracDurumu" ColumnName="AracDurumu" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -634,6 +713,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_AdminEkle" FunctionName="AracTakipDBModel.Store.sp_AdminEkle" />
+          <FunctionImportMapping FunctionImportName="sp_AdminListele" FunctionName="AracTakipDBModel.Store.sp_AdminListele">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AracTakipDBModel.sp_AdminListele_Result">
+                <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Yetki" ColumnName="Yetki" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_AracEkle" FunctionName="AracTakipDBModel.Store.sp_AracEkle" />
+          <FunctionImportMapping FunctionImportName="sp_tipListele" FunctionName="AracTakipDBModel.Store.sp_tipListele">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AracTakipDBModel.sp_tipListele_Result">
+                <ScalarProperty Name="TipId" ColumnName="TipId" />
+                <ScalarProperty Name="TipAdi" ColumnName="TipAdi" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

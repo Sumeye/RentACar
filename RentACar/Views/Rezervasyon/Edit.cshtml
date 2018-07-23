@@ -1,0 +1,94 @@
+﻿@model RentACar.Models.Rezervasyon
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+       
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.RezervasyonId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RezerveTarih, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RezerveTarih, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RezerveTarih, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RezerveSure, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RezerveSure, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RezerveSure, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RezerveBitisTarihi, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RezerveBitisTarihi, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RezerveBitisTarihi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MusteriID, "MusteriID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.MusteriID, new SelectList(ViewBag.MusteriGetir, "MusteriId", "AdiSoyadi"), "Lütfen Seçiniz", new { @class = "form-control", id = "MusteriID", name = "MusteriID" })
+                @Html.ValidationMessageFor(model => model.MusteriID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AracID, "AracID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.AracID, new SelectList(ViewBag.AracGetir, "AracId", "Plaka"), "Lütfen Seçiniz", new { @class = "form-control", id = "AracID", name = "AracID" })
+                @Html.ValidationMessageFor(model => model.AracID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RezerveUcret, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RezerveUcret, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RezerveUcret, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RezerveUcretBirimi, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.RezerveUcretBirimi, new SelectList(
+                  new List<Object>{
+                       new { value ="TL" , text = "TL"  },
+                       new { value = "Euro", text = "Euro" },
+                       new { value = "Dolar", text = "Dolar" },
+
+                    },
+                  "value",
+                  "text",
+                   3), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.RezerveUcretBirimi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6 col-md-offset-3">
+
+                <a href="~/Rezervasyon/List" class="btn btn-success">Geri Dön</a>
+                <button id="Create" value="Create" type="submit" class="btn btn-success">Ekle</button>
+            </div>
+        </div>
+    </div>
+}
+

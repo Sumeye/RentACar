@@ -22,7 +22,6 @@ namespace RentACar.Models
         public Nullable<int> AracID { get; set; }
         public Nullable<decimal> RezerveUcret { get; set; }
         public string RezerveUcretBirimi { get; set; }
-        public string AracDurumu { get; set; }
     
         public virtual Arac Arac { get; set; }
         public virtual Musteri Musteri { get; set; }

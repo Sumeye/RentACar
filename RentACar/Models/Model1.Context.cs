@@ -12,6 +12,8 @@ namespace RentACar.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class AracTakipDBEntities : DbContext
     {
@@ -35,5 +37,77 @@ namespace RentACar.Models
         public virtual DbSet<Rezervasyon> Rezervasyon { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Tip> Tip { get; set; }
+    
+        public virtual int sp_AdminEkle(string admin, string pw, string yetki)
+        {
+            var adminParameter = admin != null ?
+                new ObjectParameter("Admin", admin) :
+                new ObjectParameter("Admin", typeof(string));
+    
+            var pwParameter = pw != null ?
+                new ObjectParameter("pw", pw) :
+                new ObjectParameter("pw", typeof(string));
+    
+            var yetkiParameter = yetki != null ?
+                new ObjectParameter("yetki", yetki) :
+                new ObjectParameter("yetki", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AdminEkle", adminParameter, pwParameter, yetkiParameter);
+        }
+    
+        public virtual ObjectResult<sp_AdminListele_Result> sp_AdminListele()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_AdminListele_Result>("sp_AdminListele");
+        }
+    
+        public virtual int sp_AracEkle(Nullable<int> aracId, Nullable<int> markaId, Nullable<int> modelId, Nullable<int> tipId, string plaka, string sasiNo, string renk, string modelYıl, Nullable<decimal> ucret, string gunlukUcretBirimi)
+        {
+            var aracIdParameter = aracId.HasValue ?
+                new ObjectParameter("AracId", aracId) :
+                new ObjectParameter("AracId", typeof(int));
+    
+            var markaIdParameter = markaId.HasValue ?
+                new ObjectParameter("MarkaId", markaId) :
+                new ObjectParameter("MarkaId", typeof(int));
+    
+            var modelIdParameter = modelId.HasValue ?
+                new ObjectParameter("ModelId", modelId) :
+                new ObjectParameter("ModelId", typeof(int));
+    
+            var tipIdParameter = tipId.HasValue ?
+                new ObjectParameter("TipId", tipId) :
+                new ObjectParameter("TipId", typeof(int));
+    
+            var plakaParameter = plaka != null ?
+                new ObjectParameter("Plaka", plaka) :
+                new ObjectParameter("Plaka", typeof(string));
+    
+            var sasiNoParameter = sasiNo != null ?
+                new ObjectParameter("SasiNo", sasiNo) :
+                new ObjectParameter("SasiNo", typeof(string));
+    
+            var renkParameter = renk != null ?
+                new ObjectParameter("Renk", renk) :
+                new ObjectParameter("Renk", typeof(string));
+    
+            var modelYılParameter = modelYıl != null ?
+                new ObjectParameter("ModelYıl", modelYıl) :
+                new ObjectParameter("ModelYıl", typeof(string));
+    
+            var ucretParameter = ucret.HasValue ?
+                new ObjectParameter("Ucret", ucret) :
+                new ObjectParameter("Ucret", typeof(decimal));
+    
+            var gunlukUcretBirimiParameter = gunlukUcretBirimi != null ?
+                new ObjectParameter("GunlukUcretBirimi", gunlukUcretBirimi) :
+                new ObjectParameter("GunlukUcretBirimi", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AracEkle", aracIdParameter, markaIdParameter, modelIdParameter, tipIdParameter, plakaParameter, sasiNoParameter, renkParameter, modelYılParameter, ucretParameter, gunlukUcretBirimiParameter);
+        }
+    
+        public virtual ObjectResult<sp_tipListele_Result> sp_tipListele()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_tipListele_Result>("sp_tipListele");
+        }
     }
 }

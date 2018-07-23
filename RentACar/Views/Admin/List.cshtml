@@ -1,13 +1,14 @@
-﻿@model IEnumerable<RentACar.Models.Model>
+﻿@model IEnumerable<RentACar.Models.Admin>
 @{
     ViewBag.Title = "List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div class="right_col">
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
-                <h2 class="col-md-8">  <a href="Create" class="btn btn-primary">Yeni Model Ekle</a></h2>
+                <h2 class="col-md-8">  <a href="Register" class="btn btn-primary">Yeni Kullanıcı Ekle</a></h2>
                 <div class="clearfix"></div>
             </div>
             <div id="SearchDiv" class="x_content" style="display: block;">
@@ -15,8 +16,9 @@
                     <thead>
                         <tr>
                             <th>Sıra</th>
-                            <th>Marka</th>
-                            <th>Model</th>
+                            <th>Kullanıcı Adı</th>
+                            <th>Şifre</th> 
+                            <th>Yetki</th>
                             <th>Güncelle / Sil</th>
                         </tr>
                     </thead>
@@ -26,12 +28,13 @@
                         <tbody>
                             <tr>
                                 <td>@(++i)</td>
-                                <td>@item.Marka.MarkaAdi</td>
-                                <td>@item.ModelAdi</td>
+                                <td>@item.UserName</td>
+                               <td>@item.Password</td> @*Şifreleme yapılacak*@
+                                <td>@item.Yetki</td>
                                 <td>
-                                    <a class="fa fa-pencil btn btn-success" href="/Model/Edit/@item.ModelId">
+                                    <a class="fa fa-pencil btn btn-success" href="/Admin/Edit/@item.AdminId">
                                     </a>
-                                    <a href="/Model/Delete/@item.ModelId" onclick="return confirm('Dikkat: Bu kaydı silmek istediğinizden emin misiniz?')" class="fa fa-trash btn btn-danger "></a>
+                                    <a href="/Admin/Delete/@item.AdminId" onclick="return confirm('Dikkat: Bu kaydı silmek istediğinizden emin misiniz?')" class="fa fa-trash btn btn-danger "></a>
                                 </td>
 
                             </tr>
