@@ -17,9 +17,25 @@
         <div class="form-group">
             @Html.LabelFor(model => model.MarkaID, "Marka", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.MarkaID, new SelectList(ViewBag.MarkaGetir, "MarkaId", "MarkaAdi"),new { @class = "form-control", id = "MarkaID", name = "MarkaID" })
+                @*@Html.DropDownListFor(model => model.MarkaID, new SelectList(ViewBag.MarkaGetir, "MarkaId", "MarkaAdi"),new { @class = "form-control", id = "MarkaID", name = "MarkaID" })
 
-                @Html.ValidationMessageFor(model => model.MarkaID, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.MarkaID, "", new { @class = "text-danger" })*@
+                <select name="MarkaID" id="MarkaID" class="form-control" style="width:100%" required onchange="chngSelect(this)">
+                    <option selected disabled value="">Select</option>
+                    @foreach (var mrk in ViewBag.MarkaGetir)
+                {
+                    if (mrk.MarkaId == Model.MarkaID)
+                    {
+                <option value="@mrk.MarkaId" selected>@mrk.MarkaAdi</option>
+                    }
+                    else
+                    {
+                <option value="@mrk.MarkaId">@mrk.MarkaAdi</option>
+                    }
+
+                }
+                </select>
+
             </div>
         </div>
 
@@ -27,10 +43,25 @@
             @Html.LabelFor(model => model.ModelID, "Model", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @*@Html.DropDownList("ModelID", null, htmlAttributes: new { @class = "form-control" })*@
-                @Html.DropDownListFor(model => model.ModelID, new SelectList(ViewBag.ModelGetir, "ModelId", "ModelAdi"),new { @class = "form-control", id = "ModelID", name = "ModelID" })
+                @*@Html.DropDownListFor(model => model.ModelID, new SelectList(ViewBag.ModelGetir, "ModelId", "ModelAdi"),new { @class = "form-control", id = "ModelID", name = "ModelID" })*@
+                <select name="ModelID" id="ModelID" class="form-control select2" style="width:100%">
+                    <option selected disabled value="">Select</option>
+                    @foreach (var mdl in ViewBag.ModelGetir)
+                {
+                    if (mdl.ModelId == Model.ModelID)
+                    {
+                <option value="@mdl.ModelId" selected>@mdl.ModelAdi</option>
+                    }
+                    else if(mdl.ModelId ==Model.ModelID)
+                    {
+                <option value="@mdl.ModelId" selected>@mdl.ModelAdi</option>
+                    }
 
+                }
 
-                @Html.ValidationMessageFor(model => model.ModelID, "", new { @class = "text-danger" })
+                </select>
+
+                @*@Html.ValidationMessageFor(model => model.ModelID, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
@@ -51,7 +82,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SasiNo,"Şasi Numarası", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.SasiNo, "Şasi Numarası", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.SasiNo, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.SasiNo, "", new { @class = "text-danger" })
@@ -71,7 +102,7 @@
                     },
                   "value",
                   "text",
-                   2),new { @class= "form-control" })
+                   2), new { @class = "form-control" })
 
 
 
@@ -79,9 +110,9 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.ModelYıl,"Model Yılı", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ModelYıl, "Model Yılı", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-              
+
                 <select id="ModelYıl" name="ModelYıl" class="form-control">
                     @for (int i = 2005; i <= 2018; i++)
                     {
@@ -93,7 +124,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.GunlukUcret,"Günlük Tutar", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.GunlukUcret, "Günlük Tutar", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.GunlukUcret, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.GunlukUcret, "", new { @class = "text-danger" })
@@ -101,7 +132,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.GunlukUcretBirimi,"Tutar Cinsi", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.GunlukUcretBirimi, "Tutar Cinsi", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.GunlukUcretBirimi, new SelectList(
                   new List<Object>{
@@ -115,7 +146,7 @@
                    3), new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.GunlukUcretBirimi, "", new { @class = "text-danger" })
             </div>
-     </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-6 col-md-offset-3">
@@ -124,7 +155,23 @@
                 <button id="Edit" value="Edit" type="submit" class="btn btn-success">Güncelle</button>
             </div>
         </div>
+
     </div>
 }
 
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    function chngSelect(e) {
+        $('#ModelID').html('');
+        if ($(e).val() != '0') {
+            $.post("/Arac/Selected?id=" + $(e).val(), function (ModelID) {
+                $('#ModelID').append('<option disabled selected value="">Select</option>')
+                debugger;
+                ModelID.forEach(function (data) {
+                    $('#ModelID').append('<option value=' + data.ModelId + '>' + data.ModelAdi + '</option>')
+                })
+            });
+        }
+    }
+</script>

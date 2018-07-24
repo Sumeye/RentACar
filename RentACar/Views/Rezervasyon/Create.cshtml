@@ -1,12 +1,10 @@
 ﻿@model RentACar.Models.VM.RezervasyonViewModel
-    @{
+@{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+@*<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>*@
 
 <div class="right_col">
 
@@ -22,14 +20,13 @@
 
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="RezerveTarih">
-                               Rezervasyon Tarihi<span class="required">*</span>
+                                Rezervasyon Tarihi<span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' class="form-control" name="RezerveTarih"  id="RezerveTarih"/>
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
+                                <div class="input-group date form_datetime" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                                    <input name="RezerveTarih" class="form-control" type="text">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                    <span class="input-group-addon"><span style="margin-left:5px;font-size:25px;font-weight:normal;color:grey;" class="glyphicon glyphicon-calendar fa fa-calendar "></span></span>
                                 </div>
                             </div>
                         </div>
@@ -40,20 +37,21 @@
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="RezerveSure" class="form-control" data-validate-length-range="6" data-validate-words="2" name="RezerveSure" required="required" type="text">
+
                             </div>
                         </div>
-                     
+
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="RezerveTarih">
                                 Rezervasyon Tarihi<span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' class="form-control" name="RezerveBitisTarihi" id="RezerveBitisTarihi" />
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
+                                <div class="input-group date form_datetime" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                                    <input id="RezerveBitisTarihi" class="form-control" type="text" value="" name="RezerveBitisTarihi" required="required">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                    <span class="input-group-addon"><span style="margin-left:5px;font-size:25px;font-weight:normal;color:grey;" class="glyphicon glyphicon-calendar fa fa-calendar "></span></span>
                                 </div>
+
                             </div>
                         </div>
 
@@ -63,10 +61,10 @@
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 @Html.DropDownListFor(model => model.MusteriId, new SelectList(ViewBag.MusteriGetir, "MusteriId", "AdiSoyadi"), "Lütfen Seçiniz", new { @class = "form-control", id = "MusteriID", name = "MusteriID" })
-                            
+
                             </div>
                         </div>
-                     
+
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
                                 Araç Plaka <span class="required">*</span>
@@ -96,14 +94,14 @@
                                     <option value="Dolar">Dolar</option>
                                 </select>
                             </div>
-                        </div>                   
+                        </div>
                         <div class="ln_solid"></div>
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-3">
 
                                 @*@Html.ActionLink("Geri Dön","List",new { @class= "btn btn-primary" })*@
-                                <a href="~/Marka/List" class="btn btn-success">Geri Dön</a>
+                                <a href="~/Rezervasyon/List" class="btn btn-success">Geri Dön</a>
                                 <button id="Create" value="Create" type="submit" class="btn btn-success">Ekle</button>
                             </div>
                         </div>
@@ -116,50 +114,24 @@
     </div>
 
 
+
 </div>
 <script>
+        $(document).ready(function () {
+            $.fn.datetimepicker.dates['tr'] = {
+                days: ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"],
+                daysShort: ["Pz", "Pzt", "Sal", "Çrş", "Prş", "Cu", "Cts", "Pz"],
+                daysMin: ["Pz", "Pzt", "Sa", "Çr", "Pr", "Cu", "Ct", "Pz"],
+                months: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+                monthsShort: ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"],
+                today: "Bugün",
+                suffix: [],
+                meridiem: []
+            };
 
-    //$(function () {
-    //    $("[type=datetime]").datepicker({
-    //        closeText: 'Fechar',
-    //        prevText: '',
-    //        nextText: '',
-    //        currentText: 'Hoje',
-    //        monthNames: ['Janeiro', 'Fevereiro', 'Mar&ccedil;o', 'Abril', 'Maio', 'Junho',
-    //        'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-    //        monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
-    //        'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-    //        dayNames: ['Domingo', 'Segunda-feira', 'Ter&ccedil;a-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sabado'],
-    //        dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
-    //        dayNamesMin: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
-    //        weekHeader: 'Sm',
-    //        dateFormat: 'dd/mm/yy',
-    //        firstDay: 0,
-    //        isRTL: false,
-    //        showMonthAfterYear: false,
-    //        yearSuffix: '',
-    //        changeMonth: true,
-    //        changeYear: true
-    //    });
-    //});
-
-
-    //$(function () {
-    //    $('input[name="RezerveTarih"]').daterangepicker({
-    //        singleDatePicker: true,
-    //        showDropdowns: true,
-    //        minYear: 2014,
-    //        maxYear: parseInt(moment().format('YYYY'), 10),   
-    //    });
-    //});
-
-    //$(function () {
-    //    $('input[name="RezerveBitisTarihi"]').daterangepicker({
-    //        singleDatePicker: true,
-    //        showDropdowns: true,
-    //        minYear: 2014,
-    //        maxYear: parseInt(moment().format('YYYY'), 10),
-    //    });
-    //});
-
+            $(".form_datetime").datetimepicker({
+                format: 'yyyy-mm-dd hh:ii',
+                language: 'tr'
+            }).datetimepicker('setDate', new Date()).datetimepicker('update');
+        });
 </script>

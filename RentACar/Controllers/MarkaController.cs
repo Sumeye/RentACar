@@ -86,8 +86,12 @@ namespace RentACar.Controllers
             Marka category = mr.SelectById(id);
             mr.Delete(id);
             return RedirectToAction("List", category);
-        } 
+        }
         #endregion
+
+
+
+       
 
     }
 }

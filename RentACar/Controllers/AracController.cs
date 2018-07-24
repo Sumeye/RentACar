@@ -94,6 +94,17 @@ namespace RentACar.Controllers
         }
         #endregion
 
+        [HttpPost]
+        public ActionResult Selected(int id)
+        {
+            List<Model> mdl = new List<Model>();
+            foreach (var mdls in db.Model.Where(w=>w.MarkaID == id).ToList())
+            {
+                mdl.Add(new Model() { ModelId = mdls.ModelId, ModelAdi = mdls.ModelAdi });
+            }
+            return Json(mdl, JsonRequestBehavior.AllowGet);
+        }
+
 
     }
 }

@@ -21,7 +21,14 @@
                                 Marka <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                @Html.DropDownListFor(model => model.MarkaId, new SelectList(ViewBag.MarkaGetir, "MarkaId", "MarkaAdi"), "Lütfen Seçiniz", new { @class = "form-control col-md-7 col-xs-12", id = "MarkaID", name = "MarkaID" })
+                                @*@Html.DropDownListFor(model => model.MarkaId, new SelectList(ViewBag.MarkaGetir, "MarkaId", "MarkaAdi"), "Lütfen Seçiniz", new { @class = "form-control col-md-7 col-xs-12", id = "MarkaID", name = "MarkaID" })*@
+                                <select name="TypId" id="TypId" class="form-control select2" style="width:100%" required onchange="chngSelect(this)">
+                                    <option selected disabled value="">Select</option>
+                                  @foreach (var mrk in ViewBag.MarkaGetir)
+                                  {<option value="@mrk.MarkaId">@mrk.MarkaAdi</option>
+
+                                  }
+                                </select>
                             </div>
                         </div>
                         <div class="item form-group">

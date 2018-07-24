@@ -19,7 +19,15 @@
                                 Marka <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                @Html.DropDownListFor(model => model.MarkaId, new SelectList(ViewBag.MarkaGetir, "MarkaId", "MarkaAdi"), "Lütfen Seçiniz", new { @class = "form-control col-md-7 col-xs-12", id = "MarkaID", name = "MarkaID" })
+                                @*@Html.DropDownListFor(model => model.MarkaId, new SelectList(ViewBag.MarkaGetir, "MarkaId", "MarkaAdi"), "Lütfen Seçiniz", new { @class = "form-control col-md-7 col-xs-12", id = "MarkaID", name = "MarkaID" })*@
+                                <select name="MarkaID" id="MarkaID" class="form-control col-md-7 col-xs-12" style="width:100%" required onchange="chngSelect(this)">
+                                    <option selected disabled value="">Select</option>
+                                    @foreach (var mrk in ViewBag.MarkaGetir)
+                                    {
+                                        <option value="@mrk.MarkaId">@mrk.MarkaAdi</option>
+
+                                    }
+                                </select>
                             </div>
                         </div>
                         <div class="item form-group">
@@ -27,7 +35,10 @@
                                 Model <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                @Html.DropDownListFor(model => model.ModelId, new SelectList(ViewBag.ModelGetir, "ModelId", "ModelAdi"), "Lütfen Seçiniz", new { @class = "form-control col-md-7 col-xs-12", id = "ModelID", name = "ModelID" })
+                                @*@Html.DropDownListFor(model => model.ModelId, new SelectList(ViewBag.ModelGetir, "ModelId", "ModelAdi"), "Lütfen Seçiniz", new { @class = "form-control col-md-7 col-xs-12", id = "ModelID", name = "ModelID" })*@
+                                <select name="ModelID" id="ModelID" class="form-control col-md-7 col-xs-12" style="width:100%">
+                                    <option selected disabled value="">Seçiniz</option>
+                                </select>
                             </div>
                         </div>
                         <div class="item form-group">
@@ -36,15 +47,12 @@
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
 
-                                @Html.DropDownListFor(model => model.TipId, new SelectList(ViewBag.TipGetir, "TipId", "TipAdi"), "Lütfen Seçiniz", new { @class = "form-control col-md-7 col-xs-12" ,name="TipID"})
+                                @Html.DropDownListFor(model => model.TipId, new SelectList(ViewBag.TipGetir, "TipId", "TipAdi"), "Lütfen Seçiniz", new { @class = "form-control col-md-7 col-xs-12", name = "TipID" })
                             </div>
                         </div>
-
-
-
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
-                             Plaka <span class="required">*</span>
+                                Plaka <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="Plaka" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="Plaka" required="required" type="text">
@@ -61,22 +69,22 @@
                         </div>
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
-                               Renk <span class="required">*</span>
+                                Renk <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select  id="Renk" name="Renk"class="form-control col-md-7 col-xs-12">
-                                    <option  value="Beyaz">Beyaz</option>
-                                    <option  value="Siyah">Siyah</option>
-                                    <option  value="Sarı">Sarı</option>
-                                    <option  value="Pempe">Pembe</option>
-                                    <option  value="Kırmızı">Kırmızı</option>
+                                <select id="Renk" name="Renk" class="form-control col-md-7 col-xs-12">
+                                    <option value="Beyaz">Beyaz</option>
+                                    <option value="Siyah">Siyah</option>
+                                    <option value="Sarı">Sarı</option>
+                                    <option value="Pempe">Pembe</option>
+                                    <option value="Kırmızı">Kırmızı</option>
                                 </select>
                             </div>
 
                         </div>
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
-                               Model Yılı <span class="required">*</span>
+                                Model Yılı <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select id="ModelYıl" name="ModelYıl" class="form-control col-md-7 col-xs-12">
@@ -98,27 +106,27 @@
                         </div>
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
-                               Tutar Cinsi <span class="required">*</span>
+                                Tutar Cinsi <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select id="GunlukUcretBirimi" name="GunlukUcretBirimi" class="form-control col-md-7 col-xs-12">
-                                    <option value="₺">Türk Lirası</option>
-                                    <option value="€">Euro</option>
-                                    <option value="$">Dolar</option>
+                                    <option value="TL">Türk Lirası</option>
+                                    <option value="Euro">Euro</option>
+                                    <option value="Dolar">Dolar</option>
                                 </select>
                             </div>
 
                         </div>
-                                <div class="ln_solid"></div>
+                        <div class="ln_solid"></div>
 
-                                <div class="form-group">
-                                    <div class="col-md-6 col-md-offset-3">
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
 
-                                        @*@Html.ActionLink("Geri Dön","List",new { @class= "btn btn-primary" })*@
-                                        <a href="List" class="btn btn-success">Geri Dön</a>
-                                        <button id="Create" value="Create" type="submit" class="btn btn-success">Ekle</button>
-                                    </div>
-                                </div>
+                                @*@Html.ActionLink("Geri Dön","List",new { @class= "btn btn-primary" })*@
+                                <a href="List" class="btn btn-success">Geri Dön</a>
+                                <button id="Create" value="Create" type="submit" class="btn btn-success">Ekle</button>
+                            </div>
+                        </div>
 
                     </form>
 
@@ -129,4 +137,17 @@
 
 
 </div>
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    function chngSelect(e) {
+        $('#ModelID').html('');
+        if ($(e).val() != '0') {
+            $.post("/Arac/Selected?id=" + $(e).val(), function (ModelID) {
+                 $('#ModelID').append('<option disabled selected value="">Select</option>')
+                 ModelID.forEach(function (data) {
+                    $('#ModelID').append('<option value=' + data.ModelId + '>' + data.ModelAdi + '</option>')
+                })
+            });
+        }
+    }
+</script>

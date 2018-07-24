@@ -88,5 +88,23 @@ namespace RentACar.Controllers
         #endregion
 
 
+        #region İlce Doldurma Methodu !!!
+        [HttpPost]
+        public ActionResult Selected(int id)
+        {
+            List<ilceler> ilce = new List<ilceler>();
+            foreach (var ilcedata in db.ilceler.Where(w => w.sehirID == id).ToList())
+            {
+                ilce.Add(new ilceler() { ilceId = ilcedata.ilceId, ilce = ilcedata.ilce });
+            }
+            return Json(ilce, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
+
+
+       
+
+
     }
 }

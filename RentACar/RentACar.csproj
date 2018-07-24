@@ -116,6 +116,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\bootsrap.css" />
     <Content Include="Content\css\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\css\bootstrap-grid.css" />
     <Content Include="Content\css\bootstrap-grid.min.css" />
@@ -129,6 +130,7 @@
     <Content Include="Content\css\Chart.min.js" />
     <Content Include="Content\css\dataTables.bootstrap4.css" />
     <Content Include="Content\css\dataTables.bootstrap4.js" />
+    <Content Include="Content\css\datepicker.css" />
     <Content Include="Content\css\daterangepicker.css" />
     <Content Include="Content\css\jquery.dataTables.js" />
     <Content Include="Content\css\jquery.easing.compatibility.js" />
@@ -147,6 +149,7 @@
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\Chart.min.js" />
     <Content Include="Content\js\dataTables.bootstrap4.js" />
+    <Content Include="Content\js\datepicker.js" />
     <Content Include="Content\js\daterangepicker.js" />
     <Content Include="Content\js\jquery.dataTables.js" />
     <Content Include="Content\js\jquery.easing.min.js" />
@@ -350,7 +353,6 @@
     <Content Include="Content\vendor\jquery\jquery.min.map" />
     <Content Include="Content\vendor\jquery\jquery.slim.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\Partial\_Search.cshtml" />
     <Content Include="Views\Marka\List.cshtml" />
     <Content Include="Views\Marka\Create.cshtml" />
     <Content Include="Views\Arac\List.cshtml" />

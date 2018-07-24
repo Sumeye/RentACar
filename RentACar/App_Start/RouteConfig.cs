@@ -16,7 +16,7 @@ namespace RentACar
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Admin", action = "Login", id = UrlParameter.Optional }
+                defaults: new { controller = "Arac", action = "List", id = UrlParameter.Optional }
             );
         }
     }
