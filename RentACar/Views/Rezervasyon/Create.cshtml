@@ -23,7 +23,7 @@
                                 Rezervasyon Tarihi<span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <div class="input-group date form_datetime" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                                <div class="input-group date form_datetime" data-date-format="dd MM yyyy" data-link-field="dtp_input1">
                                     <input name="RezerveTarih" class="form-control" type="text">
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                                     <span class="input-group-addon"><span style="margin-left:5px;font-size:25px;font-weight:normal;color:grey;" class="glyphicon glyphicon-calendar fa fa-calendar "></span></span>
@@ -46,7 +46,7 @@
                                 Rezervasyon Tarihi<span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <div class="input-group date form_datetime" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                                <div class="input-group date form_datetime" data-date-format="dd MM yyyy" data-link-field="dtp_input1">
                                     <input id="RezerveBitisTarihi" class="form-control" type="text" value="" name="RezerveBitisTarihi" required="required">
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                                     <span class="input-group-addon"><span style="margin-left:5px;font-size:25px;font-weight:normal;color:grey;" class="glyphicon glyphicon-calendar fa fa-calendar "></span></span>
@@ -130,8 +130,9 @@
             };
 
             $(".form_datetime").datetimepicker({
-                format: 'yyyy-mm-dd hh:ii',
-                language: 'tr'
+                format: 'yyyy-mm-dd',
+                language: 'tr',
+                minView: 'decade',
             }).datetimepicker('setDate', new Date()).datetimepicker('update');
         });
 </script>

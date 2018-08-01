@@ -22,14 +22,15 @@ namespace AracKiralamaProje.App_Start
                              ("~/Content/js/jquery.min.js",
                              "~/Content/js/bootstrap.bundle.min.js", 
                              "~/Content/js/jquery.easing.min.js",
-                             "~/Content/js/Chart.min.js",
+                             //"~/Content/js/Chart.min.js",
                              "~/Content/js/jquery.dataTables.js",
                              "~/Content/js/sb-admin.js", 
                              "~/Content/js/sb-admin-datatables.min.js",
-                             "~/Content/js/sb-admin-charts.min.js",
+                             //"~/Content/js/sb-admin-charts.min.js",
                              "~/Content/js/dataTables.bootstrap4.js",
-                             "~/Content/js/datepicker.js"));
-
+                             "~/Content/js/datepicker.js",
+                              "~/Content/js/custom.js"));
+            bundles.Add(new ScriptBundle("~/Conten/Jqueryui").Include("~/Scripts/jquery.unobtrusive-ajax.min.js"));
            
         }
 

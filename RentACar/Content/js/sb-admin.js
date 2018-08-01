@@ -6,7 +6,6 @@
   })
   // Toggle the side navigation
   $("#sidenavToggler").on('click', function (e) {
-      console.log('test'); // bu kalsýn
     e.preventDefault();
     $("body").toggleClass("sidenav-toggled");
     $(".navbar-sidenav .nav-link-collapse").addClass("collapsed");

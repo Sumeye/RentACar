@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AracTakipDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AracTakipDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="AdminId" />
@@ -83,9 +83,9 @@
             <PropertyRef Name="RezervasyonId" />
           </Key>
           <Property Name="RezervasyonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="RezerveTarih" Type="datetime" />
+          <Property Name="RezerveTarih" Type="date" />
           <Property Name="RezerveSure" Type="int" />
-          <Property Name="RezerveBitisTarihi" Type="datetime" />
+          <Property Name="RezerveBitisTarihi" Type="date" />
           <Property Name="MusteriID" Type="int" />
           <Property Name="AracID" Type="int" />
           <Property Name="RezerveUcret" Type="money" />
@@ -109,7 +109,9 @@
           <Property Name="TipAdi" Type="varchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_Arac_Marka">
-          <End Role="Marka" Type="Self.Marka" Multiplicity="0..1" />
+          <End Role="Marka" Type="Self.Marka" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Arac" Type="Self.Arac" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Marka">
@@ -216,6 +218,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="RezervasyonTarihListele" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RezerveTarih" Type="datetime" Mode="In" />
+          <Parameter Name="RezerveBitisTarihi" Type="datetime" Mode="In" />
+        </Function>
         <Function Name="sp_AdminEkle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Admin" Type="varchar" Mode="In" />
           <Parameter Name="pw" Type="varchar" Mode="In" />
@@ -233,6 +239,10 @@
           <Parameter Name="ModelYıl" Type="varchar" Mode="In" />
           <Parameter Name="Ucret" Type="money" Mode="In" />
           <Parameter Name="GunlukUcretBirimi" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_ReservationList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StartDate" Type="date" Mode="In" />
+          <Parameter Name="EndDate" Type="date" Mode="In" />
         </Function>
         <Function Name="sp_tipListele" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="AracTakipDBModelStoreContainer">
@@ -283,8 +293,7 @@
             <End Role="Rezervasyon" EntitySet="Rezervasyon" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AracTakipDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -381,9 +390,9 @@
             <PropertyRef Name="RezervasyonId" />
           </Key>
           <Property Name="RezervasyonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RezerveTarih" Type="DateTime" Precision="3" />
+          <Property Name="RezerveTarih" Type="DateTime" Precision="0" />
           <Property Name="RezerveSure" Type="Int32" />
-          <Property Name="RezerveBitisTarihi" Type="DateTime" Precision="3" />
+          <Property Name="RezerveBitisTarihi" Type="DateTime" Precision="0" />
           <Property Name="MusteriID" Type="Int32" />
           <Property Name="AracID" Type="Int32" />
           <Property Name="RezerveUcret" Type="Decimal" Precision="19" Scale="4" />
@@ -583,6 +592,14 @@
             <Parameter Name="GunlukUcretBirimi" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_tipListele" ReturnType="Collection(AracTakipDBModel.sp_tipListele_Result)" />
+          <FunctionImport Name="RezervasyonTarihListele" ReturnType="Collection(AracTakipDBModel.RezervasyonTarihListele_Result)">
+            <Parameter Name="RezerveTarih" Mode="In" Type="DateTime" />
+            <Parameter Name="RezerveBitisTarihi" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ReservationList" ReturnType="Collection(AracTakipDBModel.sp_ReservationList_Result)">
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_AdminListele_Result">
           <Property Type="Int32" Name="AdminId" Nullable="false" />
@@ -593,6 +610,26 @@
         <ComplexType Name="sp_tipListele_Result">
           <Property Type="Int32" Name="TipId" Nullable="false" />
           <Property Type="String" Name="TipAdi" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="RezervasyonTarihListele_Result">
+          <Property Type="Int32" Name="RezervasyonId" Nullable="false" />
+          <Property Type="DateTime" Name="RezerveTarih" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="RezerveSure" Nullable="true" />
+          <Property Type="DateTime" Name="RezerveBitisTarihi" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="MusteriID" Nullable="true" />
+          <Property Type="Int32" Name="AracID" Nullable="true" />
+          <Property Type="Decimal" Name="RezerveUcret" Nullable="true" Precision="19" />
+          <Property Type="String" Name="RezerveUcretBirimi" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_ReservationList_Result">
+          <Property Type="Int32" Name="RezervasyonId" Nullable="false" />
+          <Property Type="DateTime" Name="RezerveTarih" Nullable="true" />
+          <Property Type="Int32" Name="RezerveSure" Nullable="true" />
+          <Property Type="DateTime" Name="RezerveBitisTarihi" Nullable="true" />
+          <Property Type="Int32" Name="MusteriID" Nullable="true" />
+          <Property Type="Int32" Name="AracID" Nullable="true" />
+          <Property Type="Decimal" Name="RezerveUcret" Nullable="true" Precision="19" />
+          <Property Type="String" Name="RezerveUcretBirimi" Nullable="true" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -730,6 +767,34 @@
               <ComplexTypeMapping TypeName="AracTakipDBModel.sp_tipListele_Result">
                 <ScalarProperty Name="TipId" ColumnName="TipId" />
                 <ScalarProperty Name="TipAdi" ColumnName="TipAdi" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="RezervasyonTarihListele" FunctionName="AracTakipDBModel.Store.RezervasyonTarihListele">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AracTakipDBModel.RezervasyonTarihListele_Result">
+                <ScalarProperty Name="RezervasyonId" ColumnName="RezervasyonId" />
+                <ScalarProperty Name="RezerveTarih" ColumnName="RezerveTarih" />
+                <ScalarProperty Name="RezerveSure" ColumnName="RezerveSure" />
+                <ScalarProperty Name="RezerveBitisTarihi" ColumnName="RezerveBitisTarihi" />
+                <ScalarProperty Name="MusteriID" ColumnName="MusteriID" />
+                <ScalarProperty Name="AracID" ColumnName="AracID" />
+                <ScalarProperty Name="RezerveUcret" ColumnName="RezerveUcret" />
+                <ScalarProperty Name="RezerveUcretBirimi" ColumnName="RezerveUcretBirimi" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ReservationList" FunctionName="AracTakipDBModel.Store.sp_ReservationList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AracTakipDBModel.sp_ReservationList_Result">
+                <ScalarProperty Name="RezervasyonId" ColumnName="RezervasyonId" />
+                <ScalarProperty Name="RezerveTarih" ColumnName="RezerveTarih" />
+                <ScalarProperty Name="RezerveSure" ColumnName="RezerveSure" />
+                <ScalarProperty Name="RezerveBitisTarihi" ColumnName="RezerveBitisTarihi" />
+                <ScalarProperty Name="MusteriID" ColumnName="MusteriID" />
+                <ScalarProperty Name="AracID" ColumnName="AracID" />
+                <ScalarProperty Name="RezerveUcret" ColumnName="RezerveUcret" />
+                <ScalarProperty Name="RezerveUcretBirimi" ColumnName="RezerveUcretBirimi" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -3,53 +3,129 @@
     ViewBag.Title = "List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style type="text/css">
+    #rezervationsilmeuyarisi{
+        display:none;
+    }
+</style>
+<div class="x_panel">
+    <h2 class="col-md-8">  <a href="~/Rezervasyon/Create" class="btn btn-primary">Yeni Rezervasyon</a></h2>
+    <br />
+    <div class="clearfix"></div>
 
-<div class="right_col">
+</div>
+
+<div class="col-md-12">
     <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="x_panel">
-                <h2 class="col-md-8">  <a href="Create" class="btn btn-primary">Yeni Rezervasyon</a></h2>
-                <div class="clearfix"></div>
+        <div class="item form-group">
+            <div class="col-md-12">
+                <div class="input-group date form_datetime" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                    <label class="control-label col-md-12 col-sm-12 col-xs-12" for="RezerveTarih">
+                        Rezervasyon Tarihi<span class="required">*</span>
+                    </label>
+                    <input name="RezerveTarih" id="RezerveTarih" class="form-control" type="date">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span style="margin-left:5px;font-size:25px;font-weight:normal;color:grey;" class="glyphicon glyphicon-calendar fa fa-calendar "></span></span>
+                </div>
             </div>
-            <div id="SearchDiv" class="x_content" style="display: block;">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Sıra</th>
-                            <th>Rezervasyon Sahibi</th>
-                            <th>Rezerve Araç</th>
-                            <th>Rezervasyon Tarihi</th>
-                            <th>Rezervasyon Bitiş Tarihi</th>
-                            <th>Rezervasyon Süresi</th>
-                            <th>Tutar</th>
-                            <th>Tutar Cinsi</th>
-                            <th>Güncelle / Sil</th>
-                        </tr>
-                    </thead>
-                    @{int i = 0;}
-                    @foreach (var item in Model)
-                    {
-                        <tbody>
-                            <tr>
-                                <td>@(++i)</td>
-                                <td>@item.Musteri.AdiSoyadi</td>
-                                <td>@item.Arac.Plaka</td>
-                                <td>@item.RezerveTarih</td>
-                                <td>@item.RezerveBitisTarihi</td>
-                                <td>@item.RezerveSure</td>
-                                <td>@item.RezerveUcret</td>
-                                <td>@item.RezerveUcretBirimi</td>
-                                <td>
-                                    <a class="fa fa-pencil btn btn-success" href="/Rezervasyon/Edit/@item.RezervasyonId">
-                                    </a>
-                                    <a href="/Rezervasyon/Delete/@item.RezervasyonId" onclick="return confirm('Dikkat: Bu kaydı silmek istediğinizden emin misiniz?')" class="fa fa-trash btn btn-danger "></a>
-                                </td>
-
-                            </tr>
-                        </tbody>
-                    }
-                </table>
+        </div>
+        <div class="item form-group">
+            <div class="col-md-12">
+                <div class="row">
+                    <label class="control-label col-md-12 col-sm-12 col-xs-12" for="RezerveTarih">
+                        Rezervasyon Tarihi<span class="required">*</span>
+                    </label>
+                    <div class="input-group date form_datetime" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                        <input name="RezerveTarih" id="RezerveBitisTarihi" class="form-control" type="date">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span style="margin-left:5px;font-size:25px;font-weight:normal;color:grey;" class="glyphicon glyphicon-calendar fa fa-calendar "></span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="item form-group">
+            <div class="col md-8" style="padding-top:25px";>
+                <input type="button" class="btn btn-success"  id="btn_ReservationSearch" data-id="RezervasyonId"value="Kayıt Sorgula" />
             </div>
         </div>
     </div>
+
+    <div id="rezervationsilmeuyarisi" class="alert alert-success">
+        Silme işlemi başarıyla gerçekleşti.
+    </div>
+
 </div>
+
+
+    <div class="right_col">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_content" style="display: block;">
+                    <table class="table" id="ReservationTable">
+                        <thead>
+                            <tr>
+                                <th>Sıra</th>
+                                <th>Rezervasyon Sahibi</th>
+                                <th>Rezerve Araç</th>
+                                <th>Rezervasyon Tarihi</th>
+                                <th>Rezervasyon Bitiş Tarihi</th>
+                                <th>Rezervasyon Süresi</th>
+                                <th>Tutar</th>
+                                <th>Tutar Cinsi</th>
+                                <th>Güncelle / Sil</th>
+                            </tr>
+                        </thead>
+                        @{int i = 0;}
+                        @foreach (var item in Model)
+                        {
+                            <tbody>
+                                <tr>
+                                    <td>@(++i)</td>
+                                    <td>@item.Musteri.AdiSoyadi</td>
+                                    <td>@item.Arac.Plaka</td>
+                                    <td>@string.Format("{0:dd.MM.yyyy}",item.RezerveTarih)</td>
+                                    <td>@string.Format("{0:dd.MM.yyyy}", item.RezerveBitisTarihi)</td>
+                                    <td>@item.RezerveSure</td>
+                                    <td>@item.RezerveUcret</td>
+                                    <td>@item.RezerveUcretBirimi</td>
+                                    <td>
+                                        <a class="fa fa-pencil btn btn-success" href="/Rezervasyon/Edit/@item.RezervasyonId">
+                                        </a>
+                                        @*<a href="/Rezervasyon/Delete/@item.RezervasyonId" onclick="return confirm('Dikkat: Bu kaydı silmek istediğinizden emin misiniz?')" class="fa fa-trash btn btn-danger "></a>*@
+                                        <button class="DeleteReservation btn btn-danger fa fa-trash" data-id="@item.RezervasyonId"></button>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        }
+                    </table>
+
+
+                    <table class="table table-hover" id="List"></table>
+                 
+            
+                </div>
+            </div>
+        </div>
+    </div>
+<div id="sonuclistele"></div>
+<script>
+        $(document).ready(function () {
+            $.fn.datetimepicker.dates['tr'] = {
+                days: ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"],
+                daysShort: ["Pz", "Pzt", "Sal", "Çrş", "Prş", "Cu", "Cts", "Pz"],
+                daysMin: ["Pz", "Pzt", "Sa", "Çr", "Pr", "Cu", "Ct", "Pz"],
+                months: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+                monthsShort: ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"],
+                today: "Bugün",
+                suffix: [],
+                meridiem: []
+            };
+
+            $(".form_datetime").datetimepicker({
+                format: 'yyyy-mm-dd',
+                language: 'tr',
+                minView: 'decade',
+            }).datetimepicker('setDate', new Date()).datetimepicker('update');
+        });
+</script>

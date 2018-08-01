@@ -109,5 +109,31 @@ namespace RentACar.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_tipListele_Result>("sp_tipListele");
         }
+    
+        public virtual ObjectResult<RezervasyonTarihListele_Result> RezervasyonTarihListele(Nullable<System.DateTime> rezerveTarih, Nullable<System.DateTime> rezerveBitisTarihi)
+        {
+            var rezerveTarihParameter = rezerveTarih.HasValue ?
+                new ObjectParameter("RezerveTarih", rezerveTarih) :
+                new ObjectParameter("RezerveTarih", typeof(System.DateTime));
+    
+            var rezerveBitisTarihiParameter = rezerveBitisTarihi.HasValue ?
+                new ObjectParameter("RezerveBitisTarihi", rezerveBitisTarihi) :
+                new ObjectParameter("RezerveBitisTarihi", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RezervasyonTarihListele_Result>("RezervasyonTarihListele", rezerveTarihParameter, rezerveBitisTarihiParameter);
+        }
+    
+        public virtual ObjectResult<sp_ReservationList_Result> sp_ReservationList(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ReservationList_Result>("sp_ReservationList", startDateParameter, endDateParameter);
+        }
     }
 }

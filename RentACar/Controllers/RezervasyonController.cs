@@ -12,7 +12,7 @@ namespace RentACar.Controllers
 {
     public class RezervasyonController : Controller
     {
-        RezervasyonRepository repo = new RezervasyonRepository();
+         RezervasyonRepository repo = new RezervasyonRepository();
         AracTakipDBEntities db = new AracTakipDBEntities();
         // GET: Rezervasyon
         #region Rezervasyon Listeleme İşlemleri
@@ -20,9 +20,8 @@ namespace RentACar.Controllers
         {
             var data = repo.List();
             return View(data);
-        } 
+        }
         #endregion
-
         #region Rezervasyon Ekleme işlemleri !!!
         public ActionResult Create()
         {
@@ -50,9 +49,6 @@ namespace RentACar.Controllers
 
         }
         #endregion
-
-
-
         #region Güncelleme İşlemleri !!!
         public ActionResult Edit(int id)
         {
@@ -76,17 +72,39 @@ namespace RentACar.Controllers
             return View(data);
         }
         #endregion
-
         #region Silme işlemleri !!!
-        public ActionResult Delete(int id, bool? savechangesError = false)
+        //public ActionResult Delete(int id, bool? savechangesError = false)
+        //{
+        //    if (savechangesError.GetValueOrDefault())
+        //    {
+        //        ViewBag.ErrorMessage = "Silme işlemi başarısız.";
+        //    }
+        //    Rezervasyon rezerve = repo.SelectById(id);
+        //    repo.Delete(id);
+        //    return RedirectToAction("List", rezerve);
+        //}
+        #endregion
+        #region JQuery ile Silme İşlemi !!!
+
+        public JsonResult DeleteReservation(int id)
         {
-            if (savechangesError.GetValueOrDefault())
+            Rezervasyon deletereservation = repo.SelectById(id);
+            if (deletereservation != null )
             {
-                ViewBag.ErrorMessage = "Silme işlemi başarısız.";
+                
+                repo.Delete(id);
+                return Json("Silme işlemi başarıyla gerçekleşti.",JsonRequestBehavior.AllowGet);
             }
-            Rezervasyon rezerve = repo.SelectById(id);
-            repo.Delete(id);
-            return RedirectToAction("List", rezerve);
+            return Json("Silme işlemi gerçekleşmedi.", JsonRequestBehavior.AllowGet);
+          
+        }
+        #endregion
+        #region JQuery ile Rezervasyon Arama İşlemi !!!
+        [HttpPost]
+        public ActionResult ReservationSearch(DateTime StartDate,DateTime EndDate)
+        {
+            var RezerveList = db.sp_ReservationList(StartDate.Date, EndDate.Date);
+            return Json(RezerveList, JsonRequestBehavior.AllowGet); 
         }
         #endregion
     }
