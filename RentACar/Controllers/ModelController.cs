@@ -1,4 +1,5 @@
-﻿using RentACar.Models;
+﻿using RentACar.Filter;
+using RentACar.Models;
 using RentACar.Repository;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace RentACar.Controllers
         AracTakipDBEntities db = new AracTakipDBEntities();
         // GET: Model
         #region Model tablosunu Listeler !!
+        [AutFilter]
         public ActionResult List()
         {
             var data = mr.List();
@@ -23,12 +25,14 @@ namespace RentACar.Controllers
         #endregion
 
         #region Model tablosu Ekleme İşlemleri !!!
+        [AutFilter]
         public ActionResult Create()
         {
             ViewBag.MarkaGetir = db.Marka.ToList();
             return View();
         }
         [HttpPost]
+        [AutFilter]
         public ActionResult Create(Model data)
         {
             #region Ekleme
@@ -50,6 +54,7 @@ namespace RentACar.Controllers
         #endregion
 
         #region Model tablosu Güncelleme İşlemleri !!!
+        [AutFilter]
         public ActionResult Edit(int id)
         {
            
@@ -58,6 +63,7 @@ namespace RentACar.Controllers
             return View(model);
         }
         [HttpPost]
+        [AutFilter]
         public ActionResult Edit(Model model)
         {
             if (ModelState.IsValid)
@@ -74,6 +80,7 @@ namespace RentACar.Controllers
         #endregion
 
         #region Silme işlemleri !!!
+        [AutFilter]
         public ActionResult Delete(int id, bool? savechangesError = false)
         {
             if (savechangesError.GetValueOrDefault())

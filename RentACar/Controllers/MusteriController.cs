@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data;
+using RentACar.Filter;
+
 namespace RentACar.Controllers
 {
     public class MusteriController : Controller
@@ -15,6 +17,7 @@ namespace RentACar.Controllers
         AracTakipDBEntities db = new AracTakipDBEntities();
         // GET: Customer
         #region Müşteri tablosu Listeleme !!
+        [AutFilter]
         public ActionResult List()
         {
             var data = mr.List();
@@ -23,6 +26,7 @@ namespace RentACar.Controllers
         #endregion
 
         #region Ekleme İşlemleri !!!
+        [AutFilter]
         public ActionResult Create()
         {
             ViewBag.ilgetir = db.iller.ToList();
@@ -32,12 +36,40 @@ namespace RentACar.Controllers
         [HttpPost]
         public ActionResult Create(Musteri data)
         {
+
+            int ilkonsayi = 0;
+            int toplam = 0;
+            foreach (char No in data.Tc)
+            {
+                if (ilkonsayi < 10)
+                {
+                    toplam += Convert.ToInt32(char.ToString(No));
+                }
+                ilkonsayi++;
+            }
+
             #region Ekleme
             try
             {
                 if (ModelState.IsValid)
                 {
-                    mr.Insert(data);
+                    if (toplam % 10 == Convert.ToUInt32(data.Tc[10].ToString()))
+                    {
+                        if (db.Musteri.Any(x => x.Tc.Equals(data.Tc) || x.VergiNo.Equals(data.VergiNo)))
+                        {
+
+                            return HttpNotFound("Bu Kayıt Zaten Mevcut");//TODO: Mesaj  düzenlenecek.
+                        }
+                        else
+                        {
+                            mr.Insert(data);
+
+                        }
+                    }
+                    else
+                    {
+                        return HttpNotFound("Geçerli bir TC kimlin numarası giriniz");//TODO:Mesaj düzenlenecek.
+                    }
                     return RedirectToAction("List");
                 }
             }
@@ -51,6 +83,7 @@ namespace RentACar.Controllers
         #endregion
 
         #region Güncelleme İşlemleri !!!
+        [AutFilter]
         public ActionResult Edit(int id)
         {
             ViewBag.ilgetir = db.iller.ToList();
@@ -75,6 +108,7 @@ namespace RentACar.Controllers
         #endregion
 
         #region Silme işlemleri !!!
+        [AutFilter]
         public ActionResult Delete(int id, bool? savechangesError = false)
         {
             if (savechangesError.GetValueOrDefault())
@@ -90,6 +124,7 @@ namespace RentACar.Controllers
 
         #region İlce Doldurma Methodu !!!
         [HttpPost]
+        [AutFilter]
         public ActionResult Selected(int id)
         {
             List<ilceler> ilce = new List<ilceler>();
@@ -103,7 +138,7 @@ namespace RentACar.Controllers
         #endregion
 
 
-       
+
 
 
     }

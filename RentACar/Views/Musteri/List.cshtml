@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
-                <h2 class="col-md-8">  <a href="Create" class="btn btn-primary">Yeni Müşteri Ekle</a></h2>
+                <h2 class="col-md-8">  <a href="~/Musteri/Create" class="btn btn-primary">Yeni Müşteri Ekle</a></h2>
                 <div class="clearfix"></div>
             </div>
             <div id="SearchDiv" class="x_content" style="display: block;">
@@ -40,7 +40,7 @@
                                 <td>@item.AdiSoyadi</td>
                                 <td>@item.Unvan</td>
                                 <td>@item.Cinsiyet</td>
-                                <td>@item.Dogumtarihi</td>
+                                <td>@string.Format("{0:yyyy-MM-dd}",item.Dogumtarihi)</td>
                                 <td>@item.Tc</td>
                                 <td>@item.VergiNo</td>
                                 <td>@item.VergiDairesi</td>

@@ -12,18 +12,18 @@
         <EntityTypeShape EntityType="AracTakipDBModel.Marka" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="AracTakipDBModel.Model" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
         <EntityTypeShape EntityType="AracTakipDBModel.Musteri" Width="1.5" PointX="5.25" PointY="12.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="AracTakipDBModel.Rezervasyon" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="AracTakipDBModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AracTakipDBModel.Tip" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
         <AssociationConnector Association="AracTakipDBModel.FK_Arac_Marka" ManuallyRouted="false" />
         <AssociationConnector Association="AracTakipDBModel.FK_Arac_Model" ManuallyRouted="false" />
         <AssociationConnector Association="AracTakipDBModel.FK_Arac_Tip" ManuallyRouted="false" />
-        <AssociationConnector Association="AracTakipDBModel.FK_Rezervasyon_Arac" ManuallyRouted="false" />
         <AssociationConnector Association="AracTakipDBModel.FK_ilceler_iller" ManuallyRouted="false" />
         <AssociationConnector Association="AracTakipDBModel.FK_Musteri_ilceler" ManuallyRouted="false" />
         <AssociationConnector Association="AracTakipDBModel.FK_Musteri_iller" ManuallyRouted="false" />
         <AssociationConnector Association="AracTakipDBModel.FK_Model_Marka" ManuallyRouted="false" />
-        <AssociationConnector Association="AracTakipDBModel.FK_Rezervasyon_Musteri" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AracTakipDBModel.Rezervasyon" Width="1.5" PointX="7.5" PointY="9.375" />
+        <AssociationConnector Association="AracTakipDBModel.FK_Rezervasyon_Arac" />
+        <AssociationConnector Association="AracTakipDBModel.FK_Rezervasyon_Musteri" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

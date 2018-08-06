@@ -34,12 +34,13 @@ namespace RentACar.Controllers
                             select a).FirstOrDefault();
                 if (find != null)
                 {
-                    Session["AdminId"] = find.AdminId;
+                    //Session["AdminId"] = find.AdminId;
                     Session["UserName"] = find.UserName;
                     return RedirectToAction("List","Arac");
                 }
                 else
                 {
+                    ModelState.AddModelError("", "Hatalı kullanıcı ya da şifre");
                     return View(item);
                 }
             }

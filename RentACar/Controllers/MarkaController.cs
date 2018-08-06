@@ -1,4 +1,5 @@
-﻿using RentACar.Models;
+﻿using RentACar.Filter;
+using RentACar.Models;
 using RentACar.Repository;
 using System;
 using System.Collections.Generic;
@@ -13,12 +14,9 @@ namespace RentACar.Controllers
     {
         MarkaRepository mr = new MarkaRepository();
         // GET: Marka
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         #region Marka Listeleme !!!
+        [AutFilter]
         public ActionResult List()
         {
             var data = mr.List();
@@ -27,11 +25,10 @@ namespace RentACar.Controllers
         #endregion
 
         #region Ekleme İşlemleri !!!
+        [AutFilter]
         public ActionResult Create()
         {
-            
-
-            return View();
+             return View();
         }
         [HttpPost]
         public ActionResult Create(Marka data)
@@ -55,12 +52,14 @@ namespace RentACar.Controllers
         #endregion
 
         #region Güncelleme İşlemleri !!!
+        [AutFilter]
         public ActionResult Edit(int id)
         {
             Marka brand = mr.SelectById(id);
             return View(brand);
         }
         [HttpPost]
+        [AutFilter]
         public ActionResult Edit(Marka brand)
         {
             if (ModelState.IsValid)
@@ -77,6 +76,7 @@ namespace RentACar.Controllers
         #endregion
 
         #region Silme işlemleri !!!
+        [AutFilter]
         public ActionResult Delete(int id, bool? savechangesError = false)
         {
             if (savechangesError.GetValueOrDefault())

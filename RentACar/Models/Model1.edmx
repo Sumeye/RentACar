@@ -84,7 +84,6 @@
           </Key>
           <Property Name="RezervasyonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RezerveTarih" Type="date" />
-          <Property Name="RezerveSure" Type="int" />
           <Property Name="RezerveBitisTarihi" Type="date" />
           <Property Name="MusteriID" Type="int" />
           <Property Name="AracID" Type="int" />
@@ -323,7 +322,7 @@
           <NavigationProperty Name="Marka" Relationship="Self.FK_Arac_Marka" FromRole="Arac" ToRole="Marka" />
           <NavigationProperty Name="Model" Relationship="Self.FK_Arac_Model" FromRole="Arac" ToRole="Model" />
           <NavigationProperty Name="Tip" Relationship="Self.FK_Arac_Tip" FromRole="Arac" ToRole="Tip" />
-          <NavigationProperty Name="Rezervasyon" Relationship="Self.FK_Rezervasyon_Arac" FromRole="Arac" ToRole="Rezervasyon" />
+          <NavigationProperty Name="Rezervasyon" Relationship="AracTakipDBModel.FK_Rezervasyon_Arac" FromRole="Arac" ToRole="Rezervasyon" />
         </EntityType>
         <EntityType Name="ilceler">
           <Key>
@@ -383,22 +382,7 @@
           <Property Name="SehirID" Type="Int32" />
           <NavigationProperty Name="ilceler" Relationship="Self.FK_Musteri_ilceler" FromRole="Musteri" ToRole="ilceler" />
           <NavigationProperty Name="iller" Relationship="Self.FK_Musteri_iller" FromRole="Musteri" ToRole="iller" />
-          <NavigationProperty Name="Rezervasyon" Relationship="Self.FK_Rezervasyon_Musteri" FromRole="Musteri" ToRole="Rezervasyon" />
-        </EntityType>
-        <EntityType Name="Rezervasyon">
-          <Key>
-            <PropertyRef Name="RezervasyonId" />
-          </Key>
-          <Property Name="RezervasyonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RezerveTarih" Type="DateTime" Precision="0" />
-          <Property Name="RezerveSure" Type="Int32" />
-          <Property Name="RezerveBitisTarihi" Type="DateTime" Precision="0" />
-          <Property Name="MusteriID" Type="Int32" />
-          <Property Name="AracID" Type="Int32" />
-          <Property Name="RezerveUcret" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="RezerveUcretBirimi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Arac" Relationship="Self.FK_Rezervasyon_Arac" FromRole="Rezervasyon" ToRole="Arac" />
-          <NavigationProperty Name="Musteri" Relationship="Self.FK_Rezervasyon_Musteri" FromRole="Rezervasyon" ToRole="Musteri" />
+          <NavigationProperty Name="Rezervasyon" Relationship="AracTakipDBModel.FK_Rezervasyon_Musteri" FromRole="Musteri" ToRole="Rezervasyon" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -454,18 +438,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Rezervasyon_Arac">
-          <End Role="Arac" Type="Self.Arac" Multiplicity="0..1" />
-          <End Role="Rezervasyon" Type="Self.Rezervasyon" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Arac">
-              <PropertyRef Name="AracId" />
-            </Principal>
-            <Dependent Role="Rezervasyon">
-              <PropertyRef Name="AracID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ilceler_iller">
           <End Role="iller" Type="Self.iller" Multiplicity="1" />
           <End Role="ilceler" Type="Self.ilceler" Multiplicity="*" />
@@ -514,18 +486,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Rezervasyon_Musteri">
-          <End Role="Musteri" Type="Self.Musteri" Multiplicity="0..1" />
-          <End Role="Rezervasyon" Type="Self.Rezervasyon" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Musteri">
-              <PropertyRef Name="MusteriId" />
-            </Principal>
-            <Dependent Role="Rezervasyon">
-              <PropertyRef Name="MusteriID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="AracTakipDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Admin" EntityType="Self.Admin" />
           <EntitySet Name="Arac" EntityType="Self.Arac" />
@@ -534,7 +494,6 @@
           <EntitySet Name="Marka" EntityType="Self.Marka" />
           <EntitySet Name="Model" EntityType="Self.Model" />
           <EntitySet Name="Musteri" EntityType="Self.Musteri" />
-          <EntitySet Name="Rezervasyon" EntityType="Self.Rezervasyon" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Tip" EntityType="Self.Tip" />
           <AssociationSet Name="FK_Arac_Marka" Association="Self.FK_Arac_Marka">
@@ -548,10 +507,6 @@
           <AssociationSet Name="FK_Arac_Tip" Association="Self.FK_Arac_Tip">
             <End Role="Tip" EntitySet="Tip" />
             <End Role="Arac" EntitySet="Arac" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Rezervasyon_Arac" Association="Self.FK_Rezervasyon_Arac">
-            <End Role="Arac" EntitySet="Arac" />
-            <End Role="Rezervasyon" EntitySet="Rezervasyon" />
           </AssociationSet>
           <AssociationSet Name="FK_ilceler_iller" Association="Self.FK_ilceler_iller">
             <End Role="iller" EntitySet="iller" />
@@ -568,10 +523,6 @@
           <AssociationSet Name="FK_Model_Marka" Association="Self.FK_Model_Marka">
             <End Role="Marka" EntitySet="Marka" />
             <End Role="Model" EntitySet="Model" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Rezervasyon_Musteri" Association="Self.FK_Rezervasyon_Musteri">
-            <End Role="Musteri" EntitySet="Musteri" />
-            <End Role="Rezervasyon" EntitySet="Rezervasyon" />
           </AssociationSet>
           <FunctionImport Name="sp_AdminEkle">
             <Parameter Name="Admin" Mode="In" Type="String" />
@@ -600,6 +551,15 @@
             <Parameter Name="StartDate" Mode="In" Type="DateTime" />
             <Parameter Name="EndDate" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <EntitySet Name="Rezervasyon" EntityType="AracTakipDBModel.Rezervasyon" />
+          <AssociationSet Name="FK_Rezervasyon_Arac" Association="AracTakipDBModel.FK_Rezervasyon_Arac">
+            <End Role="Arac" EntitySet="Arac" />
+            <End Role="Rezervasyon" EntitySet="Rezervasyon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rezervasyon_Musteri" Association="AracTakipDBModel.FK_Rezervasyon_Musteri">
+            <End Role="Musteri" EntitySet="Musteri" />
+            <End Role="Rezervasyon" EntitySet="Rezervasyon" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_AdminListele_Result">
           <Property Type="Int32" Name="AdminId" Nullable="false" />
@@ -631,6 +591,44 @@
           <Property Type="Decimal" Name="RezerveUcret" Nullable="true" Precision="19" />
           <Property Type="String" Name="RezerveUcretBirimi" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <EntityType Name="Rezervasyon">
+          <Key>
+            <PropertyRef Name="RezervasyonId" />
+          </Key>
+          <Property Name="RezervasyonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RezerveTarih" Type="DateTime" Precision="0" />
+          <Property Name="RezerveBitisTarihi" Type="DateTime" Precision="0" />
+          <Property Name="MusteriID" Type="Int32" />
+          <Property Name="AracID" Type="Int32" />
+          <Property Name="RezerveUcret" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="RezerveUcretBirimi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Arac" Relationship="AracTakipDBModel.FK_Rezervasyon_Arac" FromRole="Rezervasyon" ToRole="Arac" />
+          <NavigationProperty Name="Musteri" Relationship="AracTakipDBModel.FK_Rezervasyon_Musteri" FromRole="Rezervasyon" ToRole="Musteri" />
+        </EntityType>
+        <Association Name="FK_Rezervasyon_Arac">
+          <End Type="AracTakipDBModel.Arac" Role="Arac" Multiplicity="0..1" />
+          <End Type="AracTakipDBModel.Rezervasyon" Role="Rezervasyon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Arac">
+              <PropertyRef Name="AracId" />
+            </Principal>
+            <Dependent Role="Rezervasyon">
+              <PropertyRef Name="AracID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rezervasyon_Musteri">
+          <End Type="AracTakipDBModel.Musteri" Role="Musteri" Multiplicity="0..1" />
+          <End Type="AracTakipDBModel.Rezervasyon" Role="Rezervasyon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Musteri">
+              <PropertyRef Name="MusteriId" />
+            </Principal>
+            <Dependent Role="Rezervasyon">
+              <PropertyRef Name="MusteriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -717,20 +715,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Rezervasyon">
-            <EntityTypeMapping TypeName="AracTakipDBModel.Rezervasyon">
-              <MappingFragment StoreEntitySet="Rezervasyon">
-                <ScalarProperty Name="RezervasyonId" ColumnName="RezervasyonId" />
-                <ScalarProperty Name="RezerveTarih" ColumnName="RezerveTarih" />
-                <ScalarProperty Name="RezerveSure" ColumnName="RezerveSure" />
-                <ScalarProperty Name="RezerveBitisTarihi" ColumnName="RezerveBitisTarihi" />
-                <ScalarProperty Name="MusteriID" ColumnName="MusteriID" />
-                <ScalarProperty Name="AracID" ColumnName="AracID" />
-                <ScalarProperty Name="RezerveUcret" ColumnName="RezerveUcret" />
-                <ScalarProperty Name="RezerveUcretBirimi" ColumnName="RezerveUcretBirimi" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="AracTakipDBModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -798,6 +782,19 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Rezervasyon">
+            <EntityTypeMapping TypeName="AracTakipDBModel.Rezervasyon">
+              <MappingFragment StoreEntitySet="Rezervasyon">
+                <ScalarProperty Name="RezerveUcretBirimi" ColumnName="RezerveUcretBirimi" />
+                <ScalarProperty Name="RezerveUcret" ColumnName="RezerveUcret" />
+                <ScalarProperty Name="AracID" ColumnName="AracID" />
+                <ScalarProperty Name="MusteriID" ColumnName="MusteriID" />
+                <ScalarProperty Name="RezerveBitisTarihi" ColumnName="RezerveBitisTarihi" />
+                <ScalarProperty Name="RezerveTarih" ColumnName="RezerveTarih" />
+                <ScalarProperty Name="RezervasyonId" ColumnName="RezervasyonId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -34,9 +34,9 @@ namespace RentACar.Models
         public virtual DbSet<Marka> Marka { get; set; }
         public virtual DbSet<Model> Model { get; set; }
         public virtual DbSet<Musteri> Musteri { get; set; }
-        public virtual DbSet<Rezervasyon> Rezervasyon { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Tip> Tip { get; set; }
+        public virtual DbSet<Rezervasyon> Rezervasyon { get; set; }
     
         public virtual int sp_AdminEkle(string admin, string pw, string yetki)
         {

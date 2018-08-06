@@ -16,7 +16,6 @@ namespace RentACar.Models
     {
         public int RezervasyonId { get; set; }
         public Nullable<System.DateTime> RezerveTarih { get; set; }
-        public Nullable<int> RezerveSure { get; set; }
         public Nullable<System.DateTime> RezerveBitisTarihi { get; set; }
         public Nullable<int> MusteriID { get; set; }
         public Nullable<int> AracID { get; set; }

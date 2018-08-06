@@ -1,59 +1,68 @@
-﻿@model IEnumerable<RentACar.Models.Arac>
+﻿@model IList<RentACar.Models.Arac>
 @{
     ViewBag.Title = "List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <div class="right_col">
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
-                <h2 class="col-md-8">  <a href="Create" class="btn btn-primary">Yeni Araç Ekle</a></h2>
+                <h2 class="col-md-8">  <a href="~/Arac/Create" style="margin-bottom:-85px" class="btn btn-primary">Yeni Araç Ekle</a></h2>
+                <div class="col-md-8" style="margin-left:1200px; margin-bottom:10px;">
+                    <a href="~/Arac/CreatePdf" class="btn btn-success">PDF</a>
+                    <a href="~/Arac/ExportToExcel" class="btn btn-success">Excel</a>
+                </div>
                 <div class="clearfix"></div>
             </div>
-            <div id="SearchDiv" class="x_content" style="display: block;">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Sıra</th>
-                            <th>Marka Adı</th>
-                            <th>Model Adı</th>
-                            <th>Tipi</th>
-                            <th>Plaka</th>
-                            <th>Sasi No</th>
-                            <th>Renk</th>
-                            <th>Model Yıl</th>
-                            <th>Günlük Tutar</th>
-                            <th>Tutar Cinsi</th>
-                            <th>Güncelle / Sil</th>
-                        </tr>
-                    </thead>
-                    @{int i = 0;}
-                    @foreach (var item in Model)
-                    {
-                        <tbody>
-                            <tr>
-                                <td>@(++i)</td>
-                                <td>@item.Marka.MarkaAdi</td>
-                                <td>@item.Model.ModelAdi</td>
-                                <td>@item.Tip.TipAdi</td>
-                                <td>@item.Plaka</td>
-                                <td>@item.SasiNo</td>
-                                <td>@item.Renk</td>
-                                <td>@item.ModelYıl</td>
-                                <td>@item.GunlukUcret</td>
-                                <td>@item.GunlukUcretBirimi</td>
-                                <td>
-                                    <a class="fa fa-pencil btn btn-success" href="/Arac/Edit/@item.AracId">
-                                    </a>
-                                    <a href="/Arac/Delete/@item.AracId" onclick="return confirm('Dikkat: Bu kaydı silmek istediğinizden emin misiniz?')" class="fa fa-trash btn btn-danger "></a>
-                                </td>
+            @using (Html.BeginForm("ExportToExcel", "Arac", FormMethod.Post))
+            {
 
+                <div id="SearchDiv" class="x_content" style="display: block;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Sıra</th>
+                                <th>Marka Adı</th>
+                                <th>Model Adı</th>
+                                <th>Tipi</th>
+                                <th>Plaka</th>
+                                <th>Sasi No</th>
+                                <th>Renk</th>
+                                <th>Model Yıl</th>
+                                <th>Günlük Tutar</th>
+                                <th>Tutar Cinsi</th>
+                                <th>Güncelle / Sil</th>
                             </tr>
-                        </tbody>
-                    }
-                </table>
-            </div>
+                        </thead>
+                        @{int i = 0;}
+                        @foreach (var item in Model)
+                        {
+                            <tbody>
+                                <tr>
+                                    <td>@(++i)</td>
+                                    <td>@item.Marka.MarkaAdi</td>
+                                    <td>@item.Model.ModelAdi</td>
+                                    <td>@item.Tip.TipAdi</td>
+                                    <td>@item.Plaka</td>
+                                    <td>@item.SasiNo</td>
+                                    <td>@item.Renk</td>
+                                    <td>@item.ModelYıl</td>
+                                    <td>@item.GunlukUcret</td>
+                                    <td>@item.GunlukUcretBirimi</td>
+                                    <td>
+                                        <a class="fa fa-pencil btn btn-success" href="/Arac/Edit/@item.AracId">
+                                        </a>
+                                        <a href="/Arac/Delete/@item.AracId" onclick="return confirm('Dikkat: Bu kaydı silmek istediğinizden emin misiniz?')" class="fa fa-trash btn btn-danger "></a>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        }
+                    </table>
+                </div>
+                            }
         </div>
     </div>
 </div>
