@@ -11,7 +11,9 @@ namespace RentACar.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Arac
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,16 +21,34 @@ namespace RentACar.Models
         {
             this.Rezervasyon = new HashSet<Rezervasyon>();
         }
-    
+
         public int AracId { get; set; }
+        [DisplayName("Marka")]
+        [Required(ErrorMessage = " boş bırakılamaz")]
         public Nullable<int> MarkaID { get; set; }
+        [DisplayName("Model")]
+        [Required(ErrorMessage = "  boş bırakılamaz")]
         public Nullable<int> ModelID { get; set; }
+        [DisplayName("Tip")]
+        [Required(ErrorMessage = " boş bırakılamaz")]
         public Nullable<int> TipID { get; set; }
+        [DisplayName("Plaka")]
+        [Required(ErrorMessage = "boş bırakılamaz")]
         public string Plaka { get; set; }
+        [DisplayName("Şasi Numarası")]
+        [Required(ErrorMessage = "boş bırakılamaz")]
         public string SasiNo { get; set; }
+        [DisplayName("Renk")]
+        [Required(ErrorMessage = "boş bıraklımaz")]
         public string Renk { get; set; }
+        [DisplayName("Model Yılı")]
+        [Required(ErrorMessage = "boş bıraklımaz")]
         public string ModelYıl { get; set; }
+        [DisplayName("Araç Ücreti")]
+        [Required(ErrorMessage = " boş bıraklamaz")]
         public Nullable<decimal> GunlukUcret { get; set; }
+        [DisplayName("Ödeme Cinsi")]
+        [Required(ErrorMessage = " boş bırakılamaz")]
         public string GunlukUcretBirimi { get; set; }
     
         public virtual Marka Marka { get; set; }

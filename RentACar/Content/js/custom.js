@@ -66,10 +66,28 @@
         })
     })
     //Rezervasyon Arama Bitiş
+
+
+           //$("#Tc").on("input", function (evt) {
+        //    if (evt.target.value.length ==null) {
+        //        evt.target.setCustomValidity("TC boş bırakılamaz.");
+        //        $("#emailcontrol").show();
+        //        $("#emailcontrolmessage").html("Geçersiz TC");
+        //    }
+        //    else {
+        //        evt.target.setCustomValidity("");
+        //        $("#emailcontrol").hide();
+        //        $("#emailcontrolmessage").html("");
+        //    }
+        //});
+
+
 });
 
 
-
+$().ready(function () {
+   
+})
 
 
 

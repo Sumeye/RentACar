@@ -16,158 +16,172 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <form action="Create" method="post" enctype="multipart/form-data" class="form-horizontal form-label-left" novalidate="">
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Tc">
-                                TC<span class="required">*</span>
-                            </label>
-
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="Tc" class="form-control " data-validate-length-range="6" data-validate-words="2" name="Tc" required="required" type="text">
+                    @using (Html.BeginForm("Create", "Musteri", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @*<form action="Create" method="post" enctype="multipart/form-data" class="form-horizontal form-label-left" novalidate="">*@
+                        <div class="row">
+                            <div class="col-md-4 item form-group">
+                                <div class="col-md-12">
+                                    @Html.LabelFor(model => model.Tc, htmlAttributes: new { @class = "control-label" })
+                                    @Html.ValidationMessageFor(model => model.Tc, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    @Html.EditorFor(model => model.Tc, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+                            <div class="col-md-4 item form-group">
+                                <div class="col-md-12">
+                                    @Html.LabelFor(model => model.VergiNo, htmlAttributes: new { @class = "control-label" })
+                                    @Html.ValidationMessageFor(model => model.VergiNo, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    @Html.EditorFor(model => model.VergiNo, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+                            <div class="col-md-4 item form-group">
+                                @Html.LabelFor(model => model.VergiDairesi, htmlAttributes: new { @class = "control-label col-md-6" })
+                                @*@Html.ValidationMessageFor(model => model.VergiDairesi, "", new { @class = "text-danger" })*@
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    @*<input id="VergiDairesi" class="form-control " data-validate-length-range="6" data-validate-words="2" name="VergiDairesi" required="required" type="text">*@
+                                    @Html.EditorFor(model => model.VergiDairesi, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
                             </div>
                         </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="VergiNo">
-                                Vergi No<span class="required">*</span>
-                            </label>
-
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="VergiNo" class="form-control" data-validate-length-range="6" data-validate-words="2" name="VergiNo" required="required" type="text">
+                        <div class="row">
+                            <div class="col-md-4 item form-group">
+                                @Html.LabelFor(model => model.Unvan, htmlAttributes: new { @class = "control-label col-md-6" })
+                                @*@Html.ValidationMessageFor(model => model.Unvan, "", new { @class = "text-danger" })*@
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    @*<input id="Unvan" class="form-control" data-validate-length-range="6" data-validate-words="2" name="Unvan" required="required" type="text">*@
+                                    @Html.EditorFor(model => model.Unvan, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
                             </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="VergiDairesi">
-                                Vergi Dairesi<span class="required">*</span>
-                            </label>
-
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="VergiDairesi" class="form-control " data-validate-length-range="6" data-validate-words="2" name="VergiDairesi" required="required" type="text">
+                            <div class="col-md-4 item form-group">
+                                <div class="col-md-12">
+                                    @Html.LabelFor(model => model.AdiSoyadi, htmlAttributes: new { @class = "control-label" })
+                                    @Html.ValidationMessageFor(model => model.AdiSoyadi, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    @*<input id="AdiSoyadi" class="form-control" data-validate-length-range="6" data-validate-words="2" name="AdiSoyadi" required="required" type="text">*@
+                                    @Html.EditorFor(model => model.AdiSoyadi, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
                             </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Unvan">
-                                Unvan<span class="required">*</span>
-                            </label>
+                            <div class="col-md-4 item form-group">
+                                @Html.LabelFor(model => model.Cinsiyet, htmlAttributes: new { @class = "control-label col-md-6" })
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    @Html.DropDownListFor(model => model.Cinsiyet,
+                                              new SelectList(new List<Object>{
+                                                                             new { value = "Kadın" , text = "Kadın"  },
+                                                                             new { value = "Erkek" , text = "Erkek" },
+                                                        }, "value", "text"), "Seçiniz", new { @class = "form-control" })
+                                    @*<select id="Cinsiyet" name="Cinsiyet" class="form-control">
+                                            <option value="Kadın">Kadın</option>
+                                            <option value="Erkek">Erkek</option>
+                                        </select>*@
+                                </div>
 
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="Unvan" class="form-control" data-validate-length-range="6" data-validate-words="2" name="Unvan" required="required" type="text">
                             </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="AdiSoyadi">
-                                Adı Soyadı<span class="required">*</span>
-                            </label>
 
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="AdiSoyadi" class="form-control" data-validate-length-range="6" data-validate-words="2" name="AdiSoyadi" required="required" type="text">
-                            </div>
                         </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="sehir">
-                                il  <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                @*@Html.DropDownListFor(model => model.SehirID, new SelectList(ViewBag.ilgetir, "SehirId", "sehir"), "Lütfen Seçiniz", new { @class = "form-control col-md-7 col-xs-12", id = "SehirID", name = "SehirID" })*@
-                                <select name="SehirID" id="SehirID" class="form-control " style="width:100%" required onchange="chngSelect(this)">
-                                    <option selected disabled value="">Seçiniz</option>
-                                    @foreach (var il in ViewBag.ilgetir)
-                                    {
+                        <div class="row">
+
+                            <div class="col-md-4 item form-group">
+                                <div class="col-md-12">
+                                    @Html.LabelFor(model => model.SehirID, htmlAttributes: new { @class = "control-label" })
+                                    @Html.ValidationMessageFor(model => model.SehirID, "", new { @class = "text-danger" })
+                                </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                    @*@Html.DropDownListFor(model => model.SehirId, Model.CityData,  "Lütfen Seçiniz", new { @class = "form-control dropdown" })*@
+                                    @Html.DropDownListFor(model=>model.SehirID,new SelectList(ViewBag.ilgetir, "SehirId","sehir"),"Seçiniz", htmlAttributes: new {
+                                   onchange = @"chngSelect(this);",@class = "form-control dropdown col-md-12" })
+                                    @*<select name="SehirID" id="SehirID" class="form-control " style="width:100%" required onchange="chngSelect(this)">
+                                        <option selected disabled value="">Seçiniz</option>
+                                        @foreach (var il in @ViewBag.ilgetir)
+                                            {
                                         <option value="@il.SehirId">@il.sehir</option>
-                                    }
-                                </select>
-
+                                        }
+                                    </select>*@
+                                </div>
                             </div>
-                        </div>
-
-
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ilce">
-                                ilçe  <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                @*@Html.DropDownListFor(model => model.ilceID, new SelectList(ViewBag.ilcegetir, "ilceId", "ilce"), "Lütfen Seçiniz", new { @class = "form-control col-md-7 col-xs-12", id = "ilceID", name = "ilceID" })*@
-                                <select name="ilceID" id="ilceID" class="form-control" style="width:100%">
-                                    <option selected disabled value="">Seçiniz</option>
-                                </select>
-
+                            <div class="col-md-4 item form-group">
+                                <div class="col-md-12">
+                                @Html.LabelFor(model => model.ilceID, htmlAttributes: new { @class = "control-label" })
+                                @Html.ValidationMessageFor(model=>model.ilceID, "", new { @class = "text-danger" })
+                                    </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    @Html.DropDownListFor(model => model.ilceID, new SelectList(ViewBag.ilcegetir, "ilceId","ilce"),"Seçiniz", new { @class = "form-control dropdown col-md-12" })
+                                    @*<select name="ilceID" id="ilceID" class="form-control" style="width:100%">
+                                        <option selected disabled value="">Seçiniz</option>
+                                    </select>*@
+                                </div>
                             </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Adres">
-                                Adres<span class="required">*</span>
-                            </label>
-
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <textarea id="Adres" class="form-control" name="Adres" required="required"></textarea>
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
-                                Cinsiyet <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select id="Cinsiyet" name="Cinsiyet" class="form-control">
-                                  
-                                    <option value="Kadın">Kadın</option>
-                                    <option value="Erkek">Erkek</option>
-                                </select>
+                            <div class="col-md-4 item form-group">
+                                <div class="col-md-12">
+                                    @Html.LabelFor(model => model.Adres, htmlAttributes: new { @class = "control-label" })
+                                    @Html.ValidationMessageFor(model => model.Adres, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    @*<textarea id="Adres" class="form-control" name="Adres" required="required"></textarea>*@
+                                    @Html.EditorFor(model => model.Adres, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
                             </div>
 
                         </div>
-
-
-                   
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="RezerveTarih">
-                                Doğum Tarihi<span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <div class="input-group date form_datetime" data-date-format="dd MM yyyy" data-link-field="dtp_input1">
-                                    <input name="Dogumtarihi" class="form-control" type="text">
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                                    <span class="input-group-addon"><span style="margin-left:5px;font-size:25px;font-weight:normal;color:grey;" class="glyphicon glyphicon-calendar fa fa-calendar "></span></span>
+                        <div class="row">
+                            <div class="col-md-3 item form-group">
+                                @Html.LabelFor(model => model.Dogumtarihi, htmlAttributes: new { @class = "control-label col-md-6" })
+                                @Html.ValidationMessageFor(model => model.Dogumtarihi, "", new { @class = "text-danger" })
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="input-group date form_datetime" data-date-format="dd MM yyyy" data-link-field="dtp_input1">
+                                        @*<input name="Dogumtarihi" class="form-control" type="text">*@
+                                        @Html.EditorFor(model => model.Dogumtarihi, new { htmlAttributes = new { @class = "form-control" } })
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                        <span class="input-group-addon"><span style="margin-left:5px;font-size:25px;font-weight:normal;color:grey;" class="glyphicon glyphicon-calendar fa fa-calendar "></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 item form-group">
+                                @Html.LabelFor(model => model.EvTel, htmlAttributes: new { @class = "control-label col-md-12" })
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    @*<input id="EvTel" class="form-control" data-validate-length-range="6" data-validate-words="2" name="EvTel" required="required" type="text">*@
+                                    @Html.EditorFor(model => model.EvTel, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3 item form-group">
+                                <div class="col-md-12">
+                                    @Html.LabelFor(model => model.gsm, htmlAttributes: new { @class = "control-label" })
+                                    @Html.ValidationMessageFor(model => model.gsm, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    @*<input id="gsm" class="form-control" data-validate-length-range="6" data-validate-words="2" name="gsm" required="required" type="text">*@
+                                    @Html.EditorFor(model => model.gsm, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3 item form-group">
+                                @Html.LabelFor(model => model.istel, htmlAttributes: new { @class = "control-label col-md-12" })
+                                @Html.ValidationMessageFor(model => model.istel, "", new { @class = "text-danger" })
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    @*<input id="istel" class="form-control" data-validate-length-range="6" data-validate-words="2" name="istel" required="required" type="text">*@
+                                    @Html.EditorFor(model => model.istel, new { htmlAttributes = new { @class = "form-control" } })
                                 </div>
                             </div>
                         </div>
 
-
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="EvTel">
-                                Ev Telefonu<span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="EvTel" class="form-control" data-validate-length-range="6" data-validate-words="2" name="EvTel" required="required" type="text">
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gsm">
-                                Cep Telefonu<span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="gsm" class="form-control" data-validate-length-range="6" data-validate-words="2" name="gsm" required="required" type="text">
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="istel">
-                                İş Telefonu<span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="istel" class="form-control" data-validate-length-range="6" data-validate-words="2" name="istel" required="required" type="text">
-                            </div>
-                        </div>
                         <div class="ln_solid"></div>
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-3">
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-3">
 
-                                @*@Html.ActionLink("Geri Dön","List",new { @class= "btn btn-primary" })*@
-                                <a href="~/Musteri/List" class="btn btn-success">Geri Dön</a>
-                                <button id="Create" value="Create" type="submit" class="btn btn-success">Ekle</button>
+                                    @*@Html.ActionLink("Geri Dön","List",new { @class= "btn btn-primary" })*@
+                                    <a href="~/Musteri/List" class="btn btn-info">Geri Dön</a>
+                                    <button id="Create" value="Create" type="submit" class="btn btn-primary">Ekle</button>
+                                </div>
                             </div>
-                        </div>
 
-                    </form>
-
+                            @*</form>*@
+                    }
                 </div>
             </div>
         </div>
@@ -176,38 +190,43 @@
 
 </div>
 
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
+    $().ready(function () {
+        $("#ilceID option").not(":first").remove();
+    });
     function chngSelect(e) {
-        $('#ilceID').html('');
+        $('#ilceID option').not(":first").remove();
         if ($(e).val() != '0') {
             $.post("/Musteri/Selected?id=" + $(e).val(), function (ilceID) {
                 $('#ilceID').append('<option disabled selected value="">Seçiniz</option>')
-                 ilceID.forEach(function (data) {
-                     $('#ilceID').append('<option value=' + data.ilceId + '>' + data.ilce + '</option>')
+                ilceID.forEach(function (data) {
+                    $('#ilceID').append('<option value=' + data.ilceId + '>' + data.ilce + '</option>')
                 })
             });
+        } else {
+            $('#ilceID option').not(":first").remove();
         }
     }
 </script>
 
 <script>
-        $(document).ready(function () {
-            $.fn.datetimepicker.dates['tr'] = {
-                days: ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"],
-                daysShort: ["Pz", "Pzt", "Sal", "Çrş", "Prş", "Cu", "Cts", "Pz"],
-                daysMin: ["Pz", "Pzt", "Sa", "Çr", "Pr", "Cu", "Ct", "Pz"],
-                months: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
-                monthsShort: ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"],
-                today: "Bugün",
-                suffix: [],
-                meridiem: []
-            };
+    $(document).ready(function () {
+        $.fn.datetimepicker.dates['tr'] = {
+            days: ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"],
+            daysShort: ["Pz", "Pzt", "Sal", "Çrş", "Prş", "Cu", "Cts", "Pz"],
+            daysMin: ["Pz", "Pzt", "Sa", "Çr", "Pr", "Cu", "Ct", "Pz"],
+            months: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+            monthsShort: ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"],
+            today: "Bugün",
+            suffix: [],
+            meridiem: []
+        };
 
-            $(".form_datetime").datetimepicker({
-                format: 'yyyy-mm-dd',
-                minView: 'decade',
-                language: 'tr',
-            }).datetimepicker('setDate', new Date()).datetimepicker('update');
-        });
+        $(".form_datetime").datetimepicker({
+            format: 'yyyy-mm-dd',
+            minView: 'decade',
+            language: 'tr',
+        }).datetimepicker('setDate', new Date()).datetimepicker('update');
+    });
 </script>

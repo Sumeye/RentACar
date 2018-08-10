@@ -47,11 +47,12 @@ namespace RentACar.Controllers
                         {
                             return HttpNotFound("Bu tarih aralığında araç zaten kiralanmıştır.");
                         }
+                        else
+                        {
+                            repo.Insert(data);
+                        }
                     }
-                    else
-                    {
-                        repo.Insert(data);
-                    }
+                   
                     return RedirectToAction("List");
                 }
             }

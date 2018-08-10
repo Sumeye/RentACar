@@ -13,6 +13,7 @@ namespace RentACar.Controllers
     public class MarkaController : Controller
     {
         MarkaRepository mr = new MarkaRepository();
+        AracTakipDBEntities db = new AracTakipDBEntities();
         // GET: Marka
 
         #region Marka Listeleme !!!
@@ -25,7 +26,7 @@ namespace RentACar.Controllers
         #endregion
 
         #region Ekleme İşlemleri !!!
-        [AutFilter]
+        //[AutFilter]
         public ActionResult Create()
         {
              return View();
@@ -38,7 +39,16 @@ namespace RentACar.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    mr.Insert(data);
+                    if (db.Marka.Any(x=>x.MarkaAdi.Equals(data.MarkaAdi)))
+                    {
+                        ModelState.AddModelError("MarkaAdi", "Bu Marka adı zaten kayıtlı");
+                        return View(data);
+                    }
+                    else
+                    {
+                        mr.Insert(data);
+                    }
+                 
                     return RedirectToAction("List");
                 }
             }

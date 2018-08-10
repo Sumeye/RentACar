@@ -33,7 +33,7 @@ namespace RentACar.Controllers
         #endregion
 
         #region Ekleme İşlemleri !!!
-        [AutFilter]
+        //[AutFilter]
         public ActionResult Create()
         {
             ViewBag.MarkaGetir = db.Marka.ToList();
@@ -42,11 +42,10 @@ namespace RentACar.Controllers
             //ViewBag.Marka = new SelectList(db.Marka, "MarkaId", "MarkaAdi");
             //ViewBag.Model = new SelectList(db.Model, "ModelId", "ModelAdi");
             //ViewBag.Tip = new SelectList(db.Tip, "TipId", "TipAdi");
-
             return View();
         }
         [HttpPost]
-        [AutFilter]
+        //[AutFilter]
         public ActionResult Create(Arac data)
         {
             #region Ekleme
@@ -54,16 +53,20 @@ namespace RentACar.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    ViewBag.MarkaGetir = db.Marka.ToList();
+                    ViewBag.ModelGetir = db.Model.ToList();
+                    ViewBag.TipGetir = db.Tip.ToList();
                     if (db.Arac.Any(x => x.Plaka.Equals(data.Plaka) || x.SasiNo.Equals(data.SasiNo)))
                     {
-                        return HttpNotFound("Bu kayıt zaten mevcut");
+
+                        ModelState.AddModelError("Plaka", " zaten var");
+                        ModelState.AddModelError("SasiNo", " zaten var");
                     }
                     else
                     {
                         ar.Insert(data);
+                        return RedirectToAction("List");
                     }
-
-                    return RedirectToAction("List");
                 }
             }
             catch (DataException)
@@ -76,7 +79,7 @@ namespace RentACar.Controllers
         #endregion
 
         #region Güncelleme İşlemleri !!!
-        [AutFilter]
+        //[AutFilter]
         public ActionResult Edit(int id)
         {
             Arac data = ar.SelectById(id);
@@ -86,7 +89,7 @@ namespace RentACar.Controllers
             return View(data);
         }
         [HttpPost]
-        [AutFilter]
+        //[AutFilter]
         public ActionResult Edit(Arac data)
         {
             if (ModelState.IsValid)
@@ -103,7 +106,7 @@ namespace RentACar.Controllers
         #endregion
 
         #region Silme işlemleri !!!
-        [AutFilter]
+        //[AutFilter]
         public ActionResult Delete(int id, bool? savechangesError = false)
         {
             if (savechangesError.GetValueOrDefault())
@@ -118,7 +121,6 @@ namespace RentACar.Controllers
 
         #region Dropdownliste model doldurma işlemi !!!
         [HttpPost]
-        [AutFilter]
         public ActionResult Selected(int id)
         {
             List<Model> mdl = new List<Model>();
@@ -141,19 +143,20 @@ namespace RentACar.Controllers
             Document doc = new Document();
             doc.SetMargins(0f, 0f, 0f, 0f);
             //5 sutunlu pdf oluşturma  
-            PdfPTable tableLayout = new PdfPTable(8);
+            PdfPTable tableLayout = new PdfPTable(9);
             doc.SetMargins(0f, 0f, 0f, 0f);
             //Pdf Tablo oluşturma
             //Dosya yolu 
             string PdfDosyaYolu = Server.MapPath("~/Downloadss/" + PdfDosyaAdi);
 
             PdfWriter.GetInstance(doc, workStream).CloseStream = false;
+            //Dosyayı Aç
             doc.Open();
 
-            //PDF ye içerik eklenecek.   
+            //PDF dosyaya içerik ekler   
             doc.Add(Add_Content_To_PDF(tableLayout));
 
-            // Belge kapatılacak.
+            // PDF Belgeyi kapatılacak.
             doc.Close();
 
             byte[] byteInfo = workStream.ToArray();
@@ -167,7 +170,7 @@ namespace RentACar.Controllers
         protected PdfPTable Add_Content_To_PDF(PdfPTable tableLayout)
         {
 
-            float[] headers = { 35, 35, 45, 35, 30, 40, 50, 45}; //Başlık genişliği kaç başlık olucaksa burada belirtiyoruz.
+            float[] headers = { 35, 35, 45, 35, 30, 40, 50, 45,25}; //Başlık genişliği kaç başlık olucaksa burada belirtiyoruz.
             tableLayout.SetWidths(headers); //pdf başlıklarını ayarla
             tableLayout.WidthPercentage = 100; //pdf dosyası eninde yüzde değeri ayarlanır. 
             tableLayout.HeaderRows = 1;
@@ -192,6 +195,7 @@ namespace RentACar.Controllers
             AddCellToHeader(tableLayout, "Arac");
             AddCellToHeader(tableLayout, "Marka");
             AddCellToHeader(tableLayout, "Model");
+            AddCellToHeader(tableLayout, "TipID");
             AddCellToHeader(tableLayout, "SasiNo");
             AddCellToHeader(tableLayout, "Renk");
             AddCellToHeader(tableLayout, "Model Yılı");
@@ -207,6 +211,7 @@ namespace RentACar.Controllers
                 AddCellToBody(tableLayout, arac.AracId.ToString());
                 AddCellToBody(tableLayout, arac.Marka.MarkaAdi);
                 AddCellToBody(tableLayout, arac.Model.ModelAdi);
+                AddCellToBody(tableLayout, arac.Tip.TipAdi);
                 AddCellToBody(tableLayout, arac.SasiNo);
                 AddCellToBody(tableLayout, arac.Renk);
                 AddCellToBody(tableLayout, arac.ModelYıl);

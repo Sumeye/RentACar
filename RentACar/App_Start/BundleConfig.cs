@@ -30,8 +30,10 @@ namespace AracKiralamaProje.App_Start
                              "~/Content/js/dataTables.bootstrap4.js",
                              "~/Content/js/datepicker.js",
                               "~/Content/js/custom.js"));
-            bundles.Add(new ScriptBundle("~/Conten/Jqueryui").Include("~/Scripts/jquery.unobtrusive-ajax.min.js"));
-           
+            bundles.Add(new ScriptBundle("~/Scripts/Jqueryui").Include("~/Scripts/jquery.unobtrusive-ajax.min.js"));
+
+            bundles.Add(new ScriptBundle("~/Scripts/Jqueryval").Include("~/Scripts/jquery.validate.min.js",
+                                                                       "~/Scripts/jquery.validate.unobtrusive.min.js"));
         }
 
 

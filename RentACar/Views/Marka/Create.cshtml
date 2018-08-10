@@ -1,4 +1,4 @@
-﻿
+﻿@model RentACar.Models.Marka
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -14,12 +14,14 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <form action="Create" method="post" enctype="multipart/form-data" class="form-horizontal form-label-left" novalidate="">
-
+                    @*<form action="Create" method="post" enctype="multipart/form-data" class="form-horizontal form-label-left" novalidate="">*@
+                    @using (Html.BeginForm("Create", "Marka", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
-                                Marka Adı <span class="required">*</span>
-                            </label>
+                            @Html.LabelFor(model => model.MarkaAdi, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.ValidationMessageFor(model => model.MarkaAdi, "", new { @class = "text-danger" })
 
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="MarkaAdi" required="required" type="text">
@@ -37,7 +39,8 @@
                             </div>
                         </div>
 
-                    </form>
+                        @*</form>*@
+                    }
 
                 </div>
             </div>

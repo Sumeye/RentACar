@@ -11,7 +11,9 @@ namespace RentACar.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Musteri
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,18 +23,51 @@ namespace RentACar.Models
         }
     
         public int MusteriId { get; set; }
+
+        [DisplayName("Adý Soyadý")]
+        [Required(ErrorMessage = "boþ býrakýlamaz.")]
         public string AdiSoyadi { get; set; }
+
+        [DisplayName("Ünvan")]
         public string Unvan { get; set; }
+
+        [Required(ErrorMessage = "boþ býrakýlamaz.")]
         public string Cinsiyet { get; set; }
+
+        [DisplayName("Doðum Tarihi")]
         public Nullable<System.DateTime> Dogumtarihi { get; set; }
+
+        [DisplayName("TC Kimlik Numarasý")]
+        [Required(ErrorMessage = "boþ býrakýlamaz.")]
         public string Tc { get; set; }
+
+        [DisplayName("Vergi Numarasý")]
+        [Required(ErrorMessage = "boþ býrakýlamaz.")]
         public string VergiNo { get; set; }
+
+        [DisplayName("Vergi Dairesi")]
         public string VergiDairesi { get; set; }
+
+        [Required(ErrorMessage = "boþ býrakýlamaz.")]
         public string Adres { get; set; }
+
+        [DisplayName("Ev Telefonu")]
+        [Required(ErrorMessage = "boþ býrakýlamaz.")]
         public string EvTel { get; set; }
+
+        [DisplayName("Ýþ Telefonu")]
         public string istel { get; set; }
+
+        [DisplayName("Cep Telefonu")]
+        [Required(ErrorMessage = "boþ býrakýlamaz.")]
         public string gsm { get; set; }
+
+        [DisplayName("ÝLÇE")]
+        [Required(ErrorMessage = "boþ býrakýlamaz.")]
         public Nullable<int> ilceID { get; set; }
+
+        [DisplayName("ÝL")]
+        [Required(ErrorMessage = "boþ býrakýlamaz.")]
         public Nullable<int> SehirID { get; set; }
     
         public virtual ilceler ilceler { get; set; }

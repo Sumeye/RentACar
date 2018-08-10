@@ -8,17 +8,22 @@
 <div class="right_col">
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="col-md-12">
             <div class="x_panel">
-                <h2 class="col-md-8">  <a href="~/Arac/Create" style="margin-bottom:-85px" class="btn btn-primary">Yeni Araç Ekle</a></h2>
-                <div class="col-md-8" style="margin-left:1200px; margin-bottom:10px;">
-                    <a href="~/Arac/CreatePdf" class="btn btn-success">PDF</a>
-                    <a href="~/Arac/ExportToExcel" class="btn btn-success">Excel</a>
+                <div class="row">
+                    <div class="col-md-3">
+                        <a href="~/Arac/Create" class="btn btn-primary">Yeni Araç Ekle</a>
+                    </div>
+                    <div class="col-md-9 text-right">
+                        <a href="~/Arac/CreatePdf" class="btn btn-success">PDF</a>
+                        <a href="~/Arac/ExportToExcel" class="btn btn-success">Excel</a>
+                    </div>
+                    <br /><br />
                 </div>
                 <div class="clearfix"></div>
             </div>
             @using (Html.BeginForm("ExportToExcel", "Arac", FormMethod.Post))
             {
-
                 <div id="SearchDiv" class="x_content" style="display: block;">
                     <table class="table">
                         <thead>
@@ -33,6 +38,7 @@
                                 <th>Model Yıl</th>
                                 <th>Günlük Tutar</th>
                                 <th>Tutar Cinsi</th>
+                               
                                 <th>Güncelle / Sil</th>
                             </tr>
                         </thead>
@@ -62,7 +68,8 @@
                         }
                     </table>
                 </div>
-                            }
+            }
+            </div>
         </div>
     </div>
 </div>

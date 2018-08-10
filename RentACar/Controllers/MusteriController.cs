@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data;
 using RentACar.Filter;
+using RentACar.Models.VM;
 
 namespace RentACar.Controllers
 {
@@ -17,7 +18,7 @@ namespace RentACar.Controllers
         AracTakipDBEntities db = new AracTakipDBEntities();
         // GET: Customer
         #region Müşteri tablosu Listeleme !!
-        [AutFilter]
+        
         public ActionResult List()
         {
             var data = mr.List();
@@ -26,60 +27,72 @@ namespace RentACar.Controllers
         #endregion
 
         #region Ekleme İşlemleri !!!
-        [AutFilter]
+        //[AutFilter]
         public ActionResult Create()
         {
+
+            //ViewBag.ilgetir = new SelectList(db.iller.ToList(),"SehirId","sehir");
+            //ViewBag.ilcegetir = new SelectList(db.ilceler.ToList(),"ilceId","ilce");
             ViewBag.ilgetir = db.iller.ToList();
             ViewBag.ilcegetir = db.ilceler.ToList();
             return View();
         }
+        #region Ekleme
         [HttpPost]
         public ActionResult Create(Musteri data)
         {
-
-            int ilkonsayi = 0;
-            int toplam = 0;
-            foreach (char No in data.Tc)
-            {
-                if (ilkonsayi < 10)
-                {
-                    toplam += Convert.ToInt32(char.ToString(No));
-                }
-                ilkonsayi++;
-            }
-
+            ViewBag.ilgetir = db.iller.ToList();
+            ViewBag.ilcegetir = db.ilceler.ToList();
+            //ViewBag.ilgetir = new SelectList(db.iller.ToList(), "SehirId", "sehir");
+            //ViewBag.ilcegetir = new SelectList(db.ilceler.ToList(), "ilceId", "ilce");
             #region Ekleme
             try
             {
                 if (ModelState.IsValid)
                 {
+
+
+                    int ilkonsayi = 0;
+                    int toplam = 0;
+                    foreach (char No in data.Tc)
+                    {
+                        if (ilkonsayi < 10)
+                        {
+                            toplam += Convert.ToInt32(char.ToString(No));
+                        }
+                        ilkonsayi++;
+                    }
+
                     if (toplam % 10 == Convert.ToUInt32(data.Tc[10].ToString()))
                     {
                         if (db.Musteri.Any(x => x.Tc.Equals(data.Tc) || x.VergiNo.Equals(data.VergiNo)))
                         {
-
-                            return HttpNotFound("Bu Kayıt Zaten Mevcut");//TODO: Mesaj  düzenlenecek.
+                            ModelState.AddModelError("Tc", "zaten kayıtlı");
+                            ModelState.AddModelError("VergiNo", "zaten kayıtlı");
                         }
                         else
                         {
                             mr.Insert(data);
-
+                            return RedirectToAction("List");
                         }
                     }
                     else
                     {
-                        return HttpNotFound("Geçerli bir TC kimlin numarası giriniz");//TODO:Mesaj düzenlenecek.
+                        ModelState.AddModelError("Tc", "Girdiğiniz TC kimlik numarası geçersiz");
                     }
-                    return RedirectToAction("List");
+                  
                 }
             }
             catch (DataException)
             {
                 ModelState.AddModelError(string.Empty, "Kayıt Eklenemedi");
             }
+      
             return View(data);
+
             #endregion
         }
+        #endregion
         #endregion
 
         #region Güncelleme İşlemleri !!!
@@ -124,7 +137,6 @@ namespace RentACar.Controllers
 
         #region İlce Doldurma Methodu !!!
         [HttpPost]
-        [AutFilter]
         public ActionResult Selected(int id)
         {
             List<ilceler> ilce = new List<ilceler>();

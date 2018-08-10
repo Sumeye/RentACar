@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @*<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>*@
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>*@
 
 <div class="right_col">
 
@@ -16,7 +16,11 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <form action="Create" method="post" enctype="multipart/form-data" class="form-horizontal form-label-left" novalidate="">
+                    @using (Html.BeginForm("Create", "Rezervasyon", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @*<form action="Create" method="post" enctype="multipart/form-data" class="form-horizontal form-label-left" novalidate="">*@
 
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="RezerveTarih">
@@ -32,14 +36,14 @@
                         </div>
 
                         @*<div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="RezerveSure">
-                                Rezervasyon Süresi <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="RezerveSure" class="form-control" data-validate-length-range="6" data-validate-words="2" name="RezerveSure" required="required" type="text">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="RezerveSure">
+                                    Rezervasyon Süresi <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input id="RezerveSure" class="form-control" data-validate-length-range="6" data-validate-words="2" name="RezerveSure" required="required" type="text">
 
-                            </div>
-                        </div>*@
+                                </div>
+                            </div>*@
 
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="RezerveTarih">
@@ -106,8 +110,8 @@
                             </div>
                         </div>
 
-                    </form>
-
+                        @*</form>*@
+                    }
                 </div>
             </div>
         </div>
@@ -117,22 +121,22 @@
 
 </div>
 <script>
-        $(document).ready(function () {
-            $.fn.datetimepicker.dates['tr'] = {
-                days: ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"],
-                daysShort: ["Pz", "Pzt", "Sal", "Çrş", "Prş", "Cu", "Cts", "Pz"],
-                daysMin: ["Pz", "Pzt", "Sa", "Çr", "Pr", "Cu", "Ct", "Pz"],
-                months: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
-                monthsShort: ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"],
-                today: "Bugün",
-                suffix: [],
-                meridiem: []
-            };
+    $(document).ready(function () {
+        $.fn.datetimepicker.dates['tr'] = {
+            days: ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"],
+            daysShort: ["Pz", "Pzt", "Sal", "Çrş", "Prş", "Cu", "Cts", "Pz"],
+            daysMin: ["Pz", "Pzt", "Sa", "Çr", "Pr", "Cu", "Ct", "Pz"],
+            months: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+            monthsShort: ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"],
+            today: "Bugün",
+            suffix: [],
+            meridiem: []
+        };
 
-            $(".form_datetime").datetimepicker({
-                format: 'yyyy-mm-dd',
-                language: 'tr',
-                minView: 'decade',
-            }).datetimepicker('setDate', new Date()).datetimepicker('update');
-        });
+        $(".form_datetime").datetimepicker({
+            format: 'yyyy-mm-dd',
+            language: 'tr',
+            minView: 'decade',
+        }).datetimepicker('setDate', new Date()).datetimepicker('update');
+    });
 </script>
